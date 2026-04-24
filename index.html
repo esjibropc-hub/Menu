@@ -43,7 +43,7 @@
     .sourced { border: 2px solid #3fb950; color: #3fb950; padding: 1vh 1.5vw; border-radius: 6px; font-weight: bold; font-size: 2.2vh; display: inline-block;}
     .header-right p { font-size: 1.8vh; margin-top: 1vh; }
 
-    /* Table stretches to fill remaining space */
+    /* Table Layout - Fixed Column Widths */
     table { 
         width: 100%; 
         flex-grow: 1; 
@@ -51,6 +51,9 @@
         text-align: center; 
         table-layout: fixed; 
     }
+    th:nth-child(1) { width: 28%; }
+    th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6) { width: 14.4%; }
+
     th { font-size: 3vh; border-bottom: 4px solid #30363d; color: #8b949e; text-transform: uppercase; padding: 1.5vh 0; }
     td { border-bottom: 2px solid #30363d; vertical-align: middle; }
     
@@ -65,22 +68,22 @@
     .dot { font-size: 4vh; }
     .tier-desc { font-size: 2.2vh; color: #8b949e; margin-top: 0.5vh; margin-left: 2.5vw; }
     
-    /* Massive Prices */
+    /* Massive Prices & Adjusted Contrast for Distance */
     .price { font-size: 5.5vh; font-weight: bold; display: block; }
-    .reg-price { font-size: 2.2vh; margin-top: 0.5vh; display: block; }
+    .reg-price { font-size: 2.6vh; margin-top: 0.5vh; display: block; }
 
     /* Color Coding Prices */
     .row-white .price { color: white; }
-    .row-white .reg-price { color: rgba(255, 255, 255, 0.7); }
+    .row-white .reg-price { color: rgba(255, 255, 255, 0.9); }
     
     .row-blue .price { color: #58a6ff; }
-    .row-blue .reg-price { color: rgba(88, 166, 255, 0.7); }
+    .row-blue .reg-price { color: rgba(88, 166, 255, 0.9); }
     
     .row-yellow .price { color: #e3b341; }
-    .row-yellow .reg-price { color: rgba(227, 179, 65, 0.7); }
+    .row-yellow .reg-price { color: rgba(227, 179, 65, 0.9); }
     
     .row-red .price { color: #f85149; }
-    .row-red .reg-price { color: rgba(248, 81, 73, 0.7); }
+    .row-red .reg-price { color: rgba(248, 81, 73, 0.9); }
     
     /* Tier Colors for text */
     .white-dot { color: white; }
@@ -88,13 +91,16 @@
     .yellow-dot { color: #e3b341; }
     .red-dot { color: #f85149; }
     
-    /* Highlighted Deals Section */
+    /* Redesigned Deals Section for Legibility */
     .deals-section { background: linear-gradient(90deg, #3fb950 0%, #2ea043 100%); height: 18vh; }
     .deals-section td { border-bottom: none; padding: 0; }
-    .deals-wrapper { display: flex; justify-content: space-around; align-items: center; width: 100%; height: 100%; padding: 0 2vw; box-sizing: border-box; }
-    .deals-title { font-size: 4.5vh; font-weight: bold; color: black; text-transform: uppercase; letter-spacing: 1px; }
-    .deals-item { font-size: 4.8vh; font-weight: bold; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-    .deals-reg { color: #e6ffed; font-size: 2.5vh; margin-top: 0.5vh; }
+    .deals-wrapper { display: flex; justify-content: space-evenly; align-items: center; width: 100%; height: 100%; padding: 0 1vw; box-sizing: border-box; }
+    
+    .deals-title { font-size: 4.5vh; font-weight: bold; color: black; text-transform: uppercase; line-height: 1.1; width: 15%; }
+    .deal-card { background: rgba(0, 0, 0, 0.2); padding: 1.5vh 2vw; border-radius: 12px; width: 24%; border: 1px solid rgba(255,255,255,0.1); }
+    
+    .deals-item { font-size: 4vh; font-weight: bold; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); display: block; }
+    .deals-reg { color: #e6ffed; font-size: 2.2vh; margin-top: 0.5vh; display: block; }
 </style>
 </head>
 <body>
@@ -170,18 +176,18 @@
             <tr class="deals-section">
                 <td colspan="6">
                     <div class="deals-wrapper">
-                        <div class="deals-title">🔥 FEATURED DEALS</div>
-                        <div>
-                            <div class="deals-item">$5 Pre-Rolls (5/$20)</div>
-                            <div class="deals-reg">Reg: $5.55 (5/$22.20)</div>
+                        <div class="deals-title">🔥 FEATURED<br>DEALS</div>
+                        <div class="deal-card">
+                            <span class="deals-item">$5 Pre-Rolls (5/$20)</span>
+                            <span class="deals-reg">Reg: $5.55 (5/$22.20)</span>
                         </div>
-                        <div>
-                            <div class="deals-item">$50 14G Pre-Milled</div>
-                            <div class="deals-reg">Reg: $55.50</div>
+                        <div class="deal-card">
+                            <span class="deals-item">$50 14G Pre-Milled</span>
+                            <span class="deals-reg">Reg: $55.50</span>
                         </div>
-                        <div>
-                            <div class="deals-item">$80 Ounce Jar</div>
-                            <div class="deals-reg">Reg: $88.80</div>
+                        <div class="deal-card">
+                            <span class="deals-item">$80 Ounce Jar</span>
+                            <span class="deals-reg">Reg: $88.80</span>
                         </div>
                     </div>
                 </td>
