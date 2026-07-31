@@ -132,6 +132,33 @@
     
     .deals-item { font-size: 4vh; font-weight: bold; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); display: block; line-height: 1.2; } 
     .deals-reg { color: #e6ffed; font-size: 2.2vh; margin-top: 0.5vh; display: block; }
+
+    /* Sold Out Stamp Overlay */
+    .sold-out {
+        position: relative;
+    }
+    .sold-out > * {
+        opacity: 0.3; /* Dims the underlying text */
+    }
+    .sold-out::after {
+        content: "SOLD OUT";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-15deg);
+        color: #f85149; /* Red Dot color */
+        font-size: 3.8vh;
+        font-weight: 900;
+        text-transform: uppercase;
+        border: 0.4vh solid #f85149;
+        padding: 0.5vh 1vw;
+        background: rgba(13, 17, 23, 0.9);
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        white-space: nowrap;
+        letter-spacing: 2px;
+        z-index: 10;
+    }
 </style>
 </head>
 <body>
@@ -220,7 +247,7 @@
                             <span class="deals-item">$50 14G<br>Pre-Milled</span>
                             <span class="deals-reg">$55.50 (+Tax 11%)</span>
                         </div>
-                        <div class="deal-card">
+                        <div class="deal-card sold-out">
                             <span class="deals-item">$80 Ounce<br>Jar</span>
                             <span class="deals-reg">$88.80 (+Tax 11%)</span>
                         </div>
