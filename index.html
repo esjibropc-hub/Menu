@@ -43,7 +43,12 @@
     .header-right { text-align: right; }
     .sourced { border: 2px solid #3fb950; color: #3fb950; padding: 1vh 1.5vw; border-radius: 6px; font-weight: bold; font-size: 2.2vh; display: inline-block;}
 
-    /* REALEAF Neon Logo Polished */
+    /* REALEAF Neon Logo Polished & Animated */
+    @keyframes neonPulse {
+        0%, 100% { text-shadow: 0 0 1vh rgba(63, 185, 80, 0.8), 0 0 2.5vh rgba(63, 185, 80, 0.6), 0 0 4vh rgba(63, 185, 80, 0.4); }
+        50% { text-shadow: 0 0 1.5vh rgba(63, 185, 80, 1), 0 0 3vh rgba(63, 185, 80, 0.8), 0 0 5vh rgba(63, 185, 80, 0.6); }
+    }
+
     .header-center {
         position: absolute;
         left: 50%;
@@ -55,14 +60,14 @@
         font-size: 6.5vh;
         font-weight: 900;
         font-family: 'Arial Black', Impact, sans-serif;
-        color: #0d1117; /* Dark inside simulates unlit glass tube core */
-        -webkit-text-stroke: 0.3vh #3fb950; /* Matches brand green perfectly */
-        text-shadow: 0 0 1vh rgba(63, 185, 80, 0.8), 0 0 2.5vh rgba(63, 185, 80, 0.6), 0 0 4vh rgba(63, 185, 80, 0.4); 
+        color: #0d1117; 
+        -webkit-text-stroke: 0.3vh #3fb950; 
         letter-spacing: 0.7vw;
         text-transform: uppercase;
+        animation: neonPulse 3s infinite ease-in-out;
     }
 
-    /* Table Layout - Expanded first column to fix Yellow Overlap */
+    /* Table Layout */
     table { 
         width: 100%; 
         flex-grow: 1; 
@@ -70,7 +75,7 @@
         text-align: center; 
         table-layout: fixed; 
     }
-    th:nth-child(1) { width: 34%; } /* Expanded for breathing room */
+    th:nth-child(1) { width: 34%; } 
     th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6) { width: 13.2%; }
 
     /* Enlarged Headers */
@@ -91,7 +96,7 @@
     
     /* Massive Prices & Adjusted Contrast */
     .price { font-size: 5.5vh; font-weight: bold; display: block; }
-    .reg-price { font-size: 2.3vh; margin-top: 0.5vh; display: block; } /* Downsized slightly to prevent wrapping */
+    .reg-price { font-size: 2.3vh; margin-top: 0.5vh; display: block; } 
 
     /* Color Coding Prices */
     .row-white .price { color: white; }
@@ -126,19 +131,25 @@
         border-radius: 12px; 
         width: 24%; 
         border: 1px solid rgba(255,255,255,0.15); 
-        box-shadow: 0 4px 10px rgba(0,0,0,0.25); /* Adds physical depth */
+        box-shadow: 0 4px 10px rgba(0,0,0,0.25); 
         text-align: center; 
     } 
     
     .deals-item { font-size: 4vh; font-weight: bold; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); display: block; line-height: 1.2; } 
     .deals-reg { color: #e6ffed; font-size: 2.2vh; margin-top: 0.5vh; display: block; }
 
-    /* Sold Out Stamp Overlay */
+    /* Animated Sold Out Stamp Overlay */
+    @keyframes stampPulse {
+        0% { transform: translate(-50%, -50%) rotate(-15deg) scale(1); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        50% { transform: translate(-50%, -50%) rotate(-15deg) scale(1.05); box-shadow: 0 4px 25px rgba(248, 81, 73, 0.5); }
+        100% { transform: translate(-50%, -50%) rotate(-15deg) scale(1); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+    }
+
     .sold-out {
         position: relative;
     }
     .sold-out > * {
-        opacity: 0.3; /* Dims the underlying text */
+        opacity: 0.3; 
     }
     .sold-out::after {
         content: "SOLD OUT";
@@ -146,7 +157,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) rotate(-15deg);
-        color: #f85149; /* Red Dot color */
+        color: #f85149; 
         font-size: 3.8vh;
         font-weight: 900;
         text-transform: uppercase;
@@ -154,10 +165,10 @@
         padding: 0.5vh 1vw;
         background: rgba(13, 17, 23, 0.9);
         border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         white-space: nowrap;
         letter-spacing: 2px;
         z-index: 10;
+        animation: stampPulse 2s infinite ease-in-out;
     }
 </style>
 </head>
