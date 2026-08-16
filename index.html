@@ -43,10 +43,10 @@
     .header-right { text-align: right; }
     .sourced { border: 2px solid #3fb950; color: #3fb950; padding: 1vh 1.5vw; border-radius: 6px; font-weight: bold; font-size: 2.2vh; display: inline-block;}
 
-    /* REALEAF Neon Logo Polished & Animated */
-    @keyframes neonPulse {
-        0%, 100% { text-shadow: 0 0 1vh rgba(63, 185, 80, 0.8), 0 0 2.5vh rgba(63, 185, 80, 0.6), 0 0 4vh rgba(63, 185, 80, 0.4); }
-        50% { text-shadow: 0 0 1.5vh rgba(63, 185, 80, 1), 0 0 3vh rgba(63, 185, 80, 0.8), 0 0 5vh rgba(63, 185, 80, 0.6); }
+    /* REALEAF Neon Logo - Massive Glow & Hardware Accelerated */
+    @keyframes neonHum {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.85; }
     }
 
     .header-center {
@@ -57,14 +57,25 @@
         white-space: nowrap;
     }
     .logo-neon {
-        font-size: 6.5vh;
+        font-size: 7vh;
         font-weight: 900;
         font-family: 'Arial Black', Impact, sans-serif;
-        color: #0d1117; 
-        -webkit-text-stroke: 0.3vh #3fb950; 
-        letter-spacing: 0.7vw;
+        color: transparent; 
+        -webkit-text-stroke: 0.4vh #4eff5a; /* Brighter neon stroke */
+        text-shadow: 
+            0 0 1vh #4eff5a, 
+            0 0 2vh #3fb950, 
+            0 0 5vh #3fb950, 
+            0 0 8vh #3fb950, 
+            0 0 15vh rgba(63, 185, 80, 0.6); /* Massive stacked glow */
+        letter-spacing: 0.8vw;
         text-transform: uppercase;
-        animation: neonPulse 3s infinite ease-in-out;
+        
+        /* GPU Forcing to prevent disappearing elements */
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        will-change: opacity;
+        animation: neonHum 3s infinite ease-in-out;
     }
 
     /* Table Layout */
@@ -138,11 +149,11 @@
     .deals-item { font-size: 4vh; font-weight: bold; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); display: block; line-height: 1.2; } 
     .deals-reg { color: #e6ffed; font-size: 2.2vh; margin-top: 0.5vh; display: block; }
 
-    /* Animated Sold Out Stamp Overlay */
+    /* Animated Sold Out Stamp Overlay - Hardware Accelerated */
     @keyframes stampPulse {
-        0% { transform: translate(-50%, -50%) rotate(-15deg) scale(1); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        50% { transform: translate(-50%, -50%) rotate(-15deg) scale(1.05); box-shadow: 0 4px 25px rgba(248, 81, 73, 0.5); }
-        100% { transform: translate(-50%, -50%) rotate(-15deg) scale(1); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        0% { transform: translate(-50%, -50%) rotate(-15deg) scale(1); }
+        50% { transform: translate(-50%, -50%) rotate(-15deg) scale(1.12); }
+        100% { transform: translate(-50%, -50%) rotate(-15deg) scale(1); }
     }
 
     .sold-out {
@@ -158,17 +169,22 @@
         left: 50%;
         transform: translate(-50%, -50%) rotate(-15deg);
         color: #f85149; 
-        font-size: 3.8vh;
+        font-size: 4vh;
         font-weight: 900;
         text-transform: uppercase;
-        border: 0.4vh solid #f85149;
+        border: 0.5vh solid #f85149;
         padding: 0.5vh 1vw;
-        background: rgba(13, 17, 23, 0.9);
+        background: rgba(13, 17, 23, 0.95);
         border-radius: 8px;
         white-space: nowrap;
         letter-spacing: 2px;
         z-index: 10;
-        animation: stampPulse 2s infinite ease-in-out;
+        box-shadow: 0 8px 25px rgba(248, 81, 73, 0.5); /* Strong static red glow */
+        
+        /* GPU Forcing */
+        -webkit-transform: translateZ(0);
+        will-change: transform;
+        animation: stampPulse 1.8s infinite ease-in-out;
     }
 </style>
 </head>
@@ -271,3 +287,4 @@
 
 </body>
 </html>
+
