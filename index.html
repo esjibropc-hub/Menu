@@ -128,19 +128,17 @@
     .yellow-dot { color: #e3b341; }
     .red-dot { color: #f85149; }
     
-    /* Redesigned Deals Section for Legibility & Pop */
+    /* Redesigned Deals Section - Four Cards */
     .deals-section { background: linear-gradient(90deg, #3fb950 0%, #2ea043 100%); height: 18vh; }
     .deals-section td { border-bottom: none; padding: 0; }
     .deals-wrapper { display: flex; justify-content: space-evenly; align-items: center; width: 100%; height: 100%; padding: 0 1vw; box-sizing: border-box; }
     
-    .deals-title { font-size: 4.5vh; font-weight: 900; color: #0d1117; text-transform: uppercase; line-height: 1.1; width: 15%; }
-    
-    /* 3D Deal Cards */
+    /* 3D Deal Cards - Width adjusted to fit 4 cards perfectly */
     .deal-card { 
         background: rgba(0, 0, 0, 0.25); 
-        padding: 1.8vh 2vw; 
+        padding: 1.8vh 1.5vw; 
         border-radius: 12px; 
-        width: 24%; 
+        width: 23%; 
         border: 1px solid rgba(255,255,255,0.15); 
         box-shadow: 0 4px 10px rgba(0,0,0,0.25); 
         text-align: center; 
@@ -149,7 +147,7 @@
     .deals-item { font-size: 4vh; font-weight: bold; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); display: block; line-height: 1.2; } 
     .deals-reg { color: #e6ffed; font-size: 2.2vh; margin-top: 0.5vh; display: block; }
 
-    /* Live Ticker System - Hardware Accelerated */
+    /* Gapless Live Ticker System - Hardware Accelerated */
     .ticker-wrap {
         width: 100%;
         height: 5.5vh;
@@ -162,29 +160,36 @@
     }
     
     .ticker-move {
-        display: inline-block;
+        display: flex;
+        width: max-content;
+        /* GPU Forcing for infinite flawless scroll */
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        will-change: transform;
+        animation: tickerAnim 25s linear infinite;
+    }
+
+    .ticker-item {
+        display: flex;
+        align-items: center;
         white-space: nowrap;
         font-size: 2.8vh;
         font-weight: 900;
         color: white;
         text-transform: uppercase;
         letter-spacing: 0.15vw;
-        /* GPU Forcing for infinite flawless scroll */
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-        will-change: transform;
-        animation: tickerAnim 30s linear infinite;
     }
     
-    .ticker-move span {
+    .ticker-item .sep {
         color: #3fb950;
-        margin: 0 1.5vw;
+        margin: 0 2vw;
         text-shadow: 0 0 1vh rgba(63, 185, 80, 0.8);
     }
     
+    /* Translates exactly half of the double-length container for a seamless loop */
     @keyframes tickerAnim {
-        0% { transform: translate3d(100vw, 0, 0); }
-        100% { transform: translate3d(-100%, 0, 0); }
+        0% { transform: translate3d(0, 0, 0); }
+        100% { transform: translate3d(-50%, 0, 0); }
     }
 </style>
 </head>
@@ -265,7 +270,10 @@
             <tr class="deals-section">
                 <td colspan="6">
                     <div class="deals-wrapper">
-                        <div class="deals-title">🔥 FEATURED<br>DEALS</div>
+                        <div class="deal-card">
+                            <span class="deals-item">$21 Pinner Packs<br>(10 x 0.3g)</span>
+                            <span class="deals-reg">$23.31 (+Tax 11%)</span>
+                        </div>
                         <div class="deal-card">
                             <span class="deals-item">$5 Pre-Rolls<br>(5 for $20)</span>
                             <span class="deals-reg">$5.55 (5/$22.20) (+Tax 11%)</span>
@@ -284,10 +292,17 @@
         </tbody>
     </table>
     
-    <!-- LIVE TICKER SECTION -->
+    <!-- LIVE TICKER SECTION (Gapless Engine) -->
     <div class="ticker-wrap">
         <div class="ticker-move">
-            WELCOME TO REALEAF PRINCE ALBERT <span>●</span> SASKATCHEWAN'S FINEST CRAFT CANNABIS <span>●</span> NEW INVENTORY DROPS EVERY 2 WEEKS ON THURSDAYS <span>●</span> WELCOME TO REALEAF PRINCE ALBERT <span>●</span> SASKATCHEWAN'S FINEST CRAFT CANNABIS <span>●</span> NEW INVENTORY DROPS EVERY 2 WEEKS ON THURSDAYS <span>●</span>
+            <!-- Block 1 -->
+            <div class="ticker-item">
+                WELCOME TO REALEAF PRINCE ALBERT <span class="sep">●</span> SASKATCHEWAN'S FINEST CRAFT CANNABIS <span class="sep">●</span> NEW INVENTORY DROPS EVERY 2 WEEKS ON THURSDAYS <span class="sep">●</span> OPEN 10 TO 10 EVERYDAY <span class="sep">●</span>
+            </div>
+            <!-- Block 2 (Exact Duplicate for Seamless Loop) -->
+            <div class="ticker-item">
+                WELCOME TO REALEAF PRINCE ALBERT <span class="sep">●</span> SASKATCHEWAN'S FINEST CRAFT CANNABIS <span class="sep">●</span> NEW INVENTORY DROPS EVERY 2 WEEKS ON THURSDAYS <span class="sep">●</span> OPEN 10 TO 10 EVERYDAY <span class="sep">●</span>
+            </div>
         </div>
     </div>
 </div>
