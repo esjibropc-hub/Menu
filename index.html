@@ -98,37 +98,35 @@
     th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6) { width: 13.2%; }
 
     /* Enlarged Headers */
-    th { font-size: 3.8vh; border-bottom: 4px solid #30363d; color: #8b949e; text-transform: uppercase; padding: 1.5vh 0; } 
+    th { font-size: 3.8vh; border-bottom: 4px solid #30363d; color: #c9d1d9; text-transform: uppercase; padding: 1.5vh 0; } 
     td { border-bottom: 2px solid #30363d; vertical-align: middle; }
     
-    /* Category Differentiation */
-    .tier-cell { background-color: rgba(255, 255, 255, 0.02); text-align: left; padding-left: 3vw; }
+    /* Category Differentiation with Optical Row Anchoring */
+    .row-white { background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, transparent 60%); }
+    .row-blue { background: linear-gradient(90deg, rgba(88,166,255,0.08) 0%, transparent 60%); }
+    .row-yellow { background: linear-gradient(90deg, rgba(227,179,65,0.08) 0%, transparent 60%); }
+    .row-red { background: linear-gradient(90deg, rgba(248,81,73,0.08) 0%, transparent 60%); }
+
+    .tier-cell { text-align: left; padding-left: 3vw; }
     .row-white .tier-cell { border-left: 1.5vw solid white; }
     .row-blue .tier-cell { border-left: 1.5vw solid #58a6ff; }
     .row-yellow .tier-cell { border-left: 1.5vw solid #e3b341; }
     .row-red .tier-cell { border-left: 1.5vw solid #f85149; }
 
-    .tier-name { font-size: 4.2vh; font-weight: bold; display: flex; align-items: center; gap: 0.8vw; white-space: nowrap; }
+    .tier-name { font-size: 4.2vh; font-weight: 900; display: flex; align-items: center; gap: 0.8vw; white-space: nowrap; }
     .dot { font-size: 4vh; }
     .thc-label { font-size: 4.2vh; font-weight: 900; margin-left: 0.5vw; white-space: nowrap; }
-    .tier-desc { font-size: 2.2vh; color: #8b949e; margin-top: 0.5vh; margin-left: 2.5vw; }
+    .tier-desc { font-size: 2.2vh; color: #c9d1d9; margin-top: 0.5vh; margin-left: 2.5vw; font-weight: bold; }
     
-    /* Massive Prices & Adjusted Contrast */
-    .price { font-size: 5.5vh; font-weight: bold; display: block; }
-    .reg-price { font-size: 2.3vh; margin-top: 0.5vh; display: block; } 
+    /* Hyper-Legible Prices & Adjusted Contrast */
+    .price { font-size: 6vh; font-weight: 900; display: block; letter-spacing: 1px; }
+    .reg-price { font-size: 2.6vh; margin-top: 0.2vh; display: block; font-weight: bold; color: rgba(255, 255, 255, 0.95); } 
 
     /* Color Coding Prices */
     .row-white .price { color: white; }
-    .row-white .reg-price { color: rgba(255, 255, 255, 0.85); }
-    
-    .row-blue .price { color: #58a6ff; }
-    .row-blue .reg-price { color: rgba(88, 166, 255, 0.85); }
-    
-    .row-yellow .price { color: #e3b341; }
-    .row-yellow .reg-price { color: rgba(227, 179, 65, 0.85); }
-    
-    .row-red .price { color: #f85149; }
-    .row-red .reg-price { color: rgba(248, 81, 73, 0.85); }
+    .row-blue .price { color: #6db1ff; } /* Brightened slightly for optical pop */
+    .row-yellow .price { color: #f2c75c; } /* Brightened slightly for optical pop */
+    .row-red .price { color: #ff6a64; } /* Brightened slightly for optical pop */
     
     /* Tier Colors for text */
     .white-dot { color: white; }
@@ -145,19 +143,19 @@
     }
     .deals-wrapper { display: flex; justify-content: space-evenly; align-items: center; width: 100%; height: 100%; padding: 0 1vw; }
     
-    /* 3D Deal Cards */
+    /* 3D Deal Cards Forcing */
     .deal-card { 
-        background: rgba(0, 0, 0, 0.25); 
+        background: rgba(0, 0, 0, 0.35); 
         padding: 1.8vh 1.5vw; 
         border-radius: 12px; 
         width: 23%; 
-        border: 1px solid rgba(255,255,255,0.15); 
-        box-shadow: 0 4px 10px rgba(0,0,0,0.25); 
+        border: 1px solid rgba(255,255,255,0.25); 
+        box-shadow: 0 8px 16px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.1); 
         text-align: center; 
     } 
     
-    .deals-item { font-size: 4vh; font-weight: bold; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); display: block; line-height: 1.2; } 
-    .deals-reg { color: #e6ffed; font-size: 2.2vh; margin-top: 0.5vh; display: block; }
+    .deals-item { font-size: 4vh; font-weight: 900; color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.9); display: block; line-height: 1.2; letter-spacing: 0.5px; } 
+    .deals-reg { color: #ffffff; font-size: 2.4vh; font-weight: bold; margin-top: 0.5vh; display: block; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); }
 
     /* Gapless Live Ticker System */
     .ticker-wrap {
