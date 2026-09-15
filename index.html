@@ -145,24 +145,20 @@
         padding: 0 1vw; 
     }
     
-    /* 3D Deal Cards Forcing - Container Hard Lock */
+    /* 3D Deal Cards Forcing - Vidaa OS Compatibility Lock */
     .deal-card { 
         background: rgba(0, 0, 0, 0.35); 
-        padding: 0 1vw; 
+        padding: 2.2vh 1vw; 
         border-radius: 12px; 
-        width: 24%; 
-        height: 85%; /* Prevents vertical overflow */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        width: 23.5%; 
         border: 1px solid rgba(255,255,255,0.25); 
         box-shadow: 0 8px 16px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.1); 
         text-align: center; 
+        display: block; 
     } 
     
-    /* Font scale backed down to guarantee exact two-line fit */
-    .deals-item { font-size: 3.3vh; font-weight: 900; color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.9); display: block; line-height: 1.15; letter-spacing: 0.5px; } 
-    .deals-reg { color: #ffffff; font-size: 2vh; font-weight: bold; margin-top: 0.5vh; display: block; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); }
+    .deals-item { font-size: 3vh; font-weight: 900; color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.9); display: block; line-height: 1.25; letter-spacing: 0.5px; } 
+    .deals-reg { color: #ffffff; font-size: 2vh; font-weight: bold; margin-top: 0.8vh; display: block; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); }
 
     /* Gapless Live Ticker System */
     .ticker-wrap {
