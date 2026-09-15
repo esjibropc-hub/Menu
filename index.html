@@ -124,9 +124,9 @@
 
     /* Color Coding Prices */
     .row-white .price { color: white; }
-    .row-blue .price { color: #6db1ff; } /* Brightened slightly for optical pop */
-    .row-yellow .price { color: #f2c75c; } /* Brightened slightly for optical pop */
-    .row-red .price { color: #ff6a64; } /* Brightened slightly for optical pop */
+    .row-blue .price { color: #6db1ff; } 
+    .row-yellow .price { color: #f2c75c; } 
+    .row-red .price { color: #ff6a64; } 
     
     /* Tier Colors for text */
     .white-dot { color: white; }
@@ -134,14 +134,16 @@
     .yellow-dot { color: #e3b341; }
     .red-dot { color: #f85149; }
     
-    /* Redesigned Deals Section - Four Cards */
-    .deals-section { height: 18vh; }
-    .deals-section td { 
+    /* Redesigned Deals Section - Extracted from Table for Flawless Edge Bleed */
+    .deals-section { 
+        width: 100vw;
+        height: 18vh;
         background: linear-gradient(90deg, #3fb950 0%, #2ea043 100%); 
-        border-bottom: none; 
-        padding: 0;
+        display: flex; 
+        justify-content: space-evenly; 
+        align-items: center; 
+        padding: 0 1vw; 
     }
-    .deals-wrapper { display: flex; justify-content: space-evenly; align-items: center; width: 100%; height: 100%; padding: 0 1vw; }
     
     /* 3D Deal Cards Forcing */
     .deal-card { 
@@ -275,41 +277,39 @@
                 <td><span class="price">$60</span><span class="reg-price">$66.60 (+Tax 11%)</span></td>
                 <td><span class="price">$80</span><span class="reg-price">$88.80 (+Tax 11%)</span></td>
             </tr>
-            <tr class="deals-section">
-                <td colspan="6">
-                    <div class="deals-wrapper">
-                        <div class="deal-card">
-                            <span class="deals-item">$21 Pinner Packs<br>(10 x 0.3g)</span>
-                            <span class="deals-reg">$23.31 (+Tax 11%)</span>
-                        </div>
-                        <div class="deal-card">
-                            <span class="deals-item">$5 Pre-Rolls<br>(5 for $20)</span>
-                            <span class="deals-reg">$5.55 (5/$22.20) (+Tax 11%)</span>
-                        </div>
-                        <div class="deal-card">
-                            <span class="deals-item">$26 Mini-Rockets<br>(3 x 0.7g Infused)</span>
-                            <span class="deals-reg">Multi-Flavour • $28.86 (+Tax 11%)</span>
-                        </div>
-                        <div class="deal-card">
-                            <span class="deals-item">$25 Moonrocks<br>(1.5g)</span>
-                            <span class="deals-reg">$27.75 (+Tax 11%)</span>
-                        </div>
-                    </div>
-                </td>
-            </tr>
         </tbody>
     </table>
+    
+    <!-- Redesigned Deals Section extracted to block layout -->
+    <div class="deals-section">
+        <div class="deal-card">
+            <span class="deals-item">$21 Pinner Packs<br>(10 x 0.3g)</span>
+            <span class="deals-reg">$23.31 (+Tax 11%)</span>
+        </div>
+        <div class="deal-card">
+            <span class="deals-item">$5 Pre-Rolls<br>(5 for $20)</span>
+            <span class="deals-reg">$5.55 (5/$22.20) (+Tax 11%)</span>
+        </div>
+        <div class="deal-card">
+            <span class="deals-item">$26 Mini-Rockets<br>(3 x 0.7g Infused)</span>
+            <span class="deals-reg">Multi-Flavour • $28.86 (+Tax 11%)</span>
+        </div>
+        <div class="deal-card">
+            <span class="deals-item">$25 Moonrocks<br>(1.5g)</span>
+            <span class="deals-reg">$27.75 (+Tax 11%)</span>
+        </div>
+    </div>
     
     <!-- LIVE TICKER SECTION (Gapless Engine) -->
     <div class="ticker-wrap">
         <div class="ticker-move">
             <!-- Block 1 -->
             <div class="ticker-item">
-                WELCOME TO REALEAF PRINCE ALBERT <span class="sep">●</span> SASKATCHEWAN'S FINEST CRAFT CANNABIS <span class="sep">●</span> NEW INVENTORY DROPS EVERY 2 WEEKS ON THURSDAYS <span class="sep">●</span> OPEN 10 TO 10 EVERYDAY <span class="sep">●</span>
+                WELCOME TO REALEAF <span class="sep">●</span> SASKATCHEWAN'S FINEST CRAFT CANNABIS <span class="sep">●</span> NEW INVENTORY DROPS EVERY 2 WEEKS ON THURSDAYS <span class="sep">●</span> OPEN 10 TO 10 EVERYDAY <span class="sep">●</span>
             </div>
             <!-- Block 2 (Exact Duplicate for Seamless Loop) -->
             <div class="ticker-item">
-                WELCOME TO REALEAF PRINCE ALBERT <span class="sep">●</span> SASKATCHEWAN'S FINEST CRAFT CANNABIS <span class="sep">●</span> NEW INVENTORY DROPS EVERY 2 WEEKS ON THURSDAYS <span class="sep">●</span> OPEN 10 TO 10 EVERYDAY <span class="sep">●</span>
+                WELCOME TO REALEAF <span class="sep">●</span> SASKATCHEWAN'S FINEST CRAFT CANNABIS <span class="sep">●</span> NEW INVENTORY DROPS EVERY 2 WEEKS ON THURSDAYS <span class="sep">●</span> OPEN 10 TO 10 EVERYDAY <span class="sep">●</span>
             </div>
         </div>
     </div>
