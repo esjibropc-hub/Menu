@@ -25,6 +25,7 @@
     body {
         display: flex; 
         flex-direction: column;
+        position: relative;
     }
     
     .menu-container { 
@@ -202,6 +203,19 @@
         0% { transform: translate3d(0, 0, 0); }
         100% { transform: translate3d(-50%, 0, 0); }
     }
+
+    /* Copyright Stamp */
+    .copyright-stamp {
+        position: absolute;
+        bottom: 0.8vh;
+        right: 1vw;
+        font-size: 1.5vh;
+        color: rgba(255, 255, 255, 0.25);
+        z-index: 100;
+        font-weight: bold;
+        letter-spacing: 0.1vw;
+        text-transform: uppercase;
+    }
 </style>
 <script>
     // Forces the TV to fetch fresh code every 10 minutes (600000 milliseconds)
@@ -323,6 +337,8 @@
         </div>
     </div>
 </div>
+
+<div class="copyright-stamp">&copy; 2026 Dakota Adam. All Rights Reserved.</div>
 
 </body>
 </html>
