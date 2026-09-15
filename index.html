@@ -207,6 +207,14 @@
         100% { transform: translate3d(-50%, 0, 0); }
     }
 </style>
+<script>
+    // Forces the TV to fetch fresh code every 10 minutes (600000 milliseconds)
+    setInterval(function() {
+        var cleanUrl = window.location.href.split('?')[0];
+        var timestamp = new Date().getTime();
+        window.location.replace(cleanUrl + '?v=' + timestamp);
+    }, 600000);
+</script>
 </head>
 <body>
 
