@@ -100,7 +100,7 @@
 
     /* Enlarged Headers */
     th { font-size: 3.8vh; border-bottom: 4px solid #30363d; color: #c9d1d9; text-transform: uppercase; padding: 1.5vh 0; } 
-    td { border-bottom: 2px solid #30363d; vertical-align: middle; }
+    td { border-bottom: 2px solid #30363d; vertical-align: middle; transition: all 0.3s ease; }
     
     /* Category Differentiation with Optical Row Anchoring */
     .row-white { background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, transparent 60%); }
@@ -135,6 +135,22 @@
     .yellow-dot { color: #e3b341; }
     .red-dot { color: #f85149; }
     
+    /* --- REMOTE CONTROL FOCUS MODE UI --- */
+    tbody { transition: all 0.3s ease; }
+    tbody.focus-mode tr { 
+        opacity: 0.15; 
+        filter: grayscale(80%); 
+    }
+    tbody.focus-mode tr.active-tier { 
+        opacity: 1; 
+        filter: grayscale(0%);
+    }
+    /* Elevated Gradients for Active Tiers */
+    tbody.focus-mode tr.row-white.active-tier { background: linear-gradient(90deg, rgba(255,255,255,0.15) 0%, transparent 80%); }
+    tbody.focus-mode tr.row-blue.active-tier { background: linear-gradient(90deg, rgba(88,166,255,0.2) 0%, transparent 80%); }
+    tbody.focus-mode tr.row-yellow.active-tier { background: linear-gradient(90deg, rgba(227,179,65,0.2) 0%, transparent 80%); }
+    tbody.focus-mode tr.row-red.active-tier { background: linear-gradient(90deg, rgba(248,81,73,0.2) 0%, transparent 80%); }
+
     /* Redesigned Deals Section - Extracted from Table for Flawless Edge Bleed */
     .deals-section { 
         width: 100vw;
@@ -152,10 +168,13 @@
         padding: 2.2vh 1vw; 
         border-radius: 12px; 
         width: 23.5%; 
+        height: 85%; /* Prevents vertical overflow */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         border: 1px solid rgba(255,255,255,0.25); 
         box-shadow: 0 8px 16px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.1); 
         text-align: center; 
-        display: block; 
     } 
     
     .deals-item { font-size: 3vh; font-weight: 900; color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.9); display: block; line-height: 1.25; letter-spacing: 0.5px; } 
@@ -218,12 +237,53 @@
     }
 </style>
 <script>
-    // Forces the TV to fetch fresh code every 10 minutes (600000 milliseconds)
+    // 10-Minute Auto-Refresh Engine
     setInterval(function() {
         var cleanUrl = window.location.href.split('?')[0];
-        var timestamp = new Date().getTime();
-        window.location.replace(cleanUrl + '?v=' + timestamp);
+        window.location.replace(cleanUrl + '?v=' + new Date().getTime());
     }, 600000);
+
+    // Vidaa Remote Control Key Binding Engine
+    document.addEventListener('keydown', function(e) {
+        const key = e.key;
+        const tbody = document.querySelector('tbody');
+        const rows = [
+            document.querySelector('.row-white'),
+            document.querySelector('.row-blue'),
+            document.querySelector('.row-yellow'),
+            document.querySelector('.row-red')
+        ];
+
+        // Key '0' triggers instant manual cache bypass
+        if (key === '0') {
+            var cleanUrl = window.location.href.split('?')[0];
+            window.location.replace(cleanUrl + '?v=' + new Date().getTime());
+            return;
+        }
+
+        const keyMap = {'1': 0, '2': 1, '3': 2, '4': 3};
+
+        // If keys 1-4 are pressed, run isolation protocol
+        if (key in keyMap) {
+            const targetIndex = keyMap[key];
+            const targetRow = rows[targetIndex];
+
+            if (targetRow.classList.contains('active-tier')) {
+                // If it's already highlighted, turn it off
+                tbody.classList.remove('focus-mode');
+                rows.forEach(r => r.classList.remove('active-tier'));
+            } else {
+                // Highlight the selected row
+                tbody.classList.add('focus-mode');
+                rows.forEach(r => r.classList.remove('active-tier'));
+                targetRow.classList.add('active-tier');
+            }
+        } else {
+            // Any other key clears the highlight
+            tbody.classList.remove('focus-mode');
+            rows.forEach(r => r.classList.remove('active-tier'));
+        }
+    });
 </script>
 </head>
 <body>
