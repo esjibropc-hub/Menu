@@ -21,6 +21,7 @@
         font-family: sans-serif; 
         overflow: hidden; 
         transition: background-color 0.8s ease;
+        outline: none; /* Kills the focus ring */
     }
     
     body {
@@ -272,55 +273,77 @@
         window.location.replace(cleanUrl + '?v=' + new Date().getTime());
     }, 600000);
 
-    // Vidaa Remote Control Key Binding Engine
-    document.addEventListener('keydown', function(e) {
-        const key = e.key;
+    // Force Hardware Focus Lock on Boot
+    window.onload = function() {
+        document.body.focus();
+    };
+
+    // Raw ES5 Hardware KeyCode Intercept
+    window.addEventListener('keydown', function(e) {
+        var code = e.keyCode || e.which;
+        var body = document.body;
         
-        // Key '9' triggers Stealth Mode
-        if (key === '9') {
-            document.body.classList.toggle('stealth-active');
+        // Key '9' (keyCode 57) triggers Stealth Mode
+        if (code === 57) {
+            if (body.className.indexOf('stealth-active') > -1) {
+                body.className = body.className.replace('stealth-active', '').trim();
+            } else {
+                body.className += ' stealth-active';
+            }
             return;
         }
 
-        const tbody = document.querySelector('tbody');
-        const rows = [
-            document.querySelector('.row-white'),
-            document.querySelector('.row-blue'),
-            document.querySelector('.row-yellow'),
-            document.querySelector('.row-red')
-        ];
-
-        // Key '0' triggers instant manual cache bypass
-        if (key === '0') {
+        // Key '0' (keyCode 48) triggers instant manual cache bypass
+        if (code === 48) {
             var cleanUrl = window.location.href.split('?')[0];
             window.location.replace(cleanUrl + '?v=' + new Date().getTime());
             return;
         }
 
-        const keyMap = {'1': 0, '2': 1, '3': 2, '4': 3};
+        var tbody = document.querySelector('tbody');
+        var rows = [
+            document.querySelector('.row-white'),
+            document.querySelector('.row-blue'),
+            document.querySelector('.row-yellow'),
+            document.querySelector('.row-red')
+        ];
+        
+        var isStealth = body.className.indexOf('stealth-active') > -1;
+        var targetIndex = -1;
 
-        // If keys 1-4 are pressed, run isolation protocol
-        if (key in keyMap && !document.body.classList.contains('stealth-active')) {
-            const targetIndex = keyMap[key];
-            const targetRow = rows[targetIndex];
+        if (code === 49) targetIndex = 0; // Key 1
+        if (code === 50) targetIndex = 1; // Key 2
+        if (code === 51) targetIndex = 2; // Key 3
+        if (code === 52) targetIndex = 3; // Key 4
 
-            if (targetRow.classList.contains('active-tier')) {
-                tbody.classList.remove('focus-mode');
-                rows.forEach(r => r.classList.remove('active-tier'));
+        // Execute Isolation Protocol
+        if (targetIndex > -1 && !isStealth) {
+            var targetRow = rows[targetIndex];
+            if (targetRow.className.indexOf('active-tier') > -1) {
+                tbody.className = tbody.className.replace('focus-mode', '').trim();
+                for (var i = 0; i < rows.length; i++) {
+                    rows[i].className = rows[i].className.replace('active-tier', '').trim();
+                }
             } else {
-                tbody.classList.add('focus-mode');
-                rows.forEach(r => r.classList.remove('active-tier'));
-                targetRow.classList.add('active-tier');
+                if (tbody.className.indexOf('focus-mode') === -1) {
+                    tbody.className += ' focus-mode';
+                }
+                for (var j = 0; j < rows.length; j++) {
+                    rows[j].className = rows[j].className.replace('active-tier', '').trim();
+                }
+                targetRow.className += ' active-tier';
             }
-        } else {
-            // Any other key clears the highlight
-            tbody.classList.remove('focus-mode');
-            rows.forEach(r => r.classList.remove('active-tier'));
+        } else if (!isStealth && code !== 13) {
+            // Any other key (excluding Enter/13 to avoid conflicts) wipes the highlight
+            tbody.className = tbody.className.replace('focus-mode', '').trim();
+            for (var k = 0; k < rows.length; k++) {
+                rows[k].className = rows[k].className.replace('active-tier', '').trim();
+            }
         }
     });
 </script>
 </head>
-<body>
+<body tabindex="0">
 
 <div class="menu-container">
     <div class="header">
