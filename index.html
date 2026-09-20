@@ -21,7 +21,7 @@
         font-family: sans-serif; 
         overflow: hidden; 
         transition: background-color 0.8s ease;
-        outline: none; /* Kills the focus ring */
+        outline: none; 
     }
     
     body {
@@ -125,16 +125,6 @@
     .thc-label { font-size: 4.2vh; font-weight: 900; margin-left: 0.5vw; white-space: nowrap; }
     .tier-desc { font-size: 2.2vh; color: #c9d1d9; margin-top: 0.5vh; margin-left: 2.5vw; font-weight: bold; }
     
-    /* Visual Alert Pulsing Engine */
-    @keyframes pulseWarning {
-        0%, 100% { opacity: 1; color: #f2c75c; text-shadow: 0 0 1vh rgba(242, 199, 92, 0.8); }
-        50% { opacity: 0.4; color: #c9d1d9; text-shadow: none; }
-    }
-    .warning-pulse {
-        animation: pulseWarning 1.5s infinite ease-in-out;
-        font-weight: 900;
-    }
-
     /* Hyper-Legible Prices & Adjusted Contrast */
     .price { font-size: 6vh; font-weight: 900; display: block; letter-spacing: 1px; }
     .reg-price { font-size: 2.6vh; margin-top: 0.2vh; display: block; font-weight: bold; color: rgba(255, 255, 255, 0.95); } 
@@ -142,7 +132,6 @@
     /* Color Coding Prices */
     .row-white .price { color: white; }
     .row-blue .price { color: #6db1ff; } 
-    .row-yellow .price { color: #f2c75c; } 
     .row-red .price { color: #ff6a64; } 
     
     /* Tier Colors for text */
@@ -150,21 +139,34 @@
     .blue-dot { color: #58a6ff; }
     .yellow-dot { color: #e3b341; }
     .red-dot { color: #f85149; }
+
+    /* --- DEAD TIER EXECUTION --- */
+    .tier-dead {
+        opacity: 0.3 !important;
+        filter: grayscale(100%) !important;
+        pointer-events: none;
+    }
+    .oos-text {
+        font-size: 4.5vh;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.7);
+        letter-spacing: 1vw;
+        text-transform: uppercase;
+    }
     
     /* --- REMOTE CONTROL FOCUS MODE UI --- */
     tbody { transition: all 0.3s ease; }
-    tbody.focus-mode tr { 
+    tbody.focus-mode tr:not(.tier-dead) { 
         opacity: 0.15; 
         filter: grayscale(80%); 
     }
-    tbody.focus-mode tr.active-tier { 
+    tbody.focus-mode tr.active-tier:not(.tier-dead) { 
         opacity: 1; 
         filter: grayscale(0%);
     }
     /* Elevated Gradients for Active Tiers */
     tbody.focus-mode tr.row-white.active-tier { background: linear-gradient(90deg, rgba(255,255,255,0.15) 0%, transparent 80%); }
     tbody.focus-mode tr.row-blue.active-tier { background: linear-gradient(90deg, rgba(88,166,255,0.2) 0%, transparent 80%); }
-    tbody.focus-mode tr.row-yellow.active-tier { background: linear-gradient(90deg, rgba(227,179,65,0.2) 0%, transparent 80%); }
     tbody.focus-mode tr.row-red.active-tier { background: linear-gradient(90deg, rgba(248,81,73,0.2) 0%, transparent 80%); }
 
     /* Redesigned Deals Section - Extracted from Table for Flawless Edge Bleed */
@@ -399,16 +401,12 @@
                 <td><span class="price">$90</span><span class="reg-price">$99.90 (+Tax 11%)</span></td>
                 <td><span class="price">$150</span><span class="reg-price">$166.50 (+Tax 11%)</span></td>
             </tr>
-            <tr class="row-yellow">
+            <tr class="row-yellow tier-dead">
                 <td class="tier-cell">
                     <div class="tier-name yellow-dot"><span class="dot">●</span> YELLOW DOT <span class="thc-label">25-27%</span></div>
-                    <div class="tier-desc">STANDARD AAA • <span class="warning-pulse">SATIVA ONLY</span></div>
+                    <div class="tier-desc">STANDARD AAA</div>
                 </td>
-                <td><span class="price">$8</span><span class="reg-price">$8.88 (+Tax 11%)</span></td>
-                <td><span class="price">$28</span><span class="reg-price">$31.08 (+Tax 11%)</span></td>
-                <td><span class="price">$40</span><span class="reg-price">$44.40 (+Tax 11%)</span></td>
-                <td><span class="price">$80</span><span class="reg-price">$88.80 (+Tax 11%)</span></td>
-                <td><span class="price">$125</span><span class="reg-price">$138.75 (+Tax 11%)</span></td>
+                <td colspan="5" class="oos-text">OUT OF STOCK</td>
             </tr>
             <tr class="row-red">
                 <td class="tier-cell">
