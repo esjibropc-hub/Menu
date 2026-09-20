@@ -111,14 +111,14 @@
     /* Category Differentiation with Optical Row Anchoring */
     .row-white { background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, transparent 60%); }
     .row-blue { background: linear-gradient(90deg, rgba(88,166,255,0.08) 0%, transparent 60%); }
-    .row-yellow { background: linear-gradient(90deg, rgba(227,179,65,0.08) 0%, transparent 60%); }
     .row-red { background: linear-gradient(90deg, rgba(248,81,73,0.08) 0%, transparent 60%); }
+    .row-yellow { background: linear-gradient(90deg, rgba(227,179,65,0.08) 0%, transparent 60%); }
 
     .tier-cell { text-align: left; padding-left: 3vw; }
     .row-white .tier-cell { border-left: 1.5vw solid white; }
     .row-blue .tier-cell { border-left: 1.5vw solid #58a6ff; }
-    .row-yellow .tier-cell { border-left: 1.5vw solid #e3b341; }
     .row-red .tier-cell { border-left: 1.5vw solid #f85149; }
+    .row-yellow .tier-cell { border-left: 1.5vw solid #e3b341; }
 
     .tier-name { font-size: 4.2vh; font-weight: 900; display: flex; align-items: center; gap: 0.8vw; white-space: nowrap; }
     .dot { font-size: 4vh; }
@@ -137,8 +137,8 @@
     /* Tier Colors for text */
     .white-dot { color: white; }
     .blue-dot { color: #58a6ff; }
-    .yellow-dot { color: #e3b341; }
     .red-dot { color: #f85149; }
+    .yellow-dot { color: #e3b341; }
 
     /* --- DEAD TIER EXECUTION --- */
     .tier-dead {
@@ -168,6 +168,7 @@
     tbody.focus-mode tr.row-white.active-tier { background: linear-gradient(90deg, rgba(255,255,255,0.15) 0%, transparent 80%); }
     tbody.focus-mode tr.row-blue.active-tier { background: linear-gradient(90deg, rgba(88,166,255,0.2) 0%, transparent 80%); }
     tbody.focus-mode tr.row-red.active-tier { background: linear-gradient(90deg, rgba(248,81,73,0.2) 0%, transparent 80%); }
+    tbody.focus-mode tr.row-yellow.active-tier { background: linear-gradient(90deg, rgba(227,179,65,0.2) 0%, transparent 80%); }
 
     /* Redesigned Deals Section - Extracted from Table for Flawless Edge Bleed */
     .deals-section { 
@@ -310,8 +311,8 @@
         var rows = [
             document.querySelector('.row-white'),
             document.querySelector('.row-blue'),
-            document.querySelector('.row-yellow'),
-            document.querySelector('.row-red')
+            document.querySelector('.row-red'),
+            document.querySelector('.row-yellow')
         ];
         
         var isStealth = body.className.indexOf('stealth-active') > -1;
@@ -401,13 +402,6 @@
                 <td><span class="price">$90</span><span class="reg-price">$99.90 (+Tax 11%)</span></td>
                 <td><span class="price">$150</span><span class="reg-price">$166.50 (+Tax 11%)</span></td>
             </tr>
-            <tr class="row-yellow tier-dead">
-                <td class="tier-cell">
-                    <div class="tier-name yellow-dot"><span class="dot">●</span> YELLOW DOT <span class="thc-label">25-27%</span></div>
-                    <div class="tier-desc">STANDARD AAA</div>
-                </td>
-                <td colspan="5" class="oos-text">OUT OF STOCK</td>
-            </tr>
             <tr class="row-red">
                 <td class="tier-cell">
                     <div class="tier-name red-dot"><span class="dot">●</span> RED DOT <span class="thc-label">21-24%</span></div>
@@ -418,6 +412,13 @@
                 <td><span class="price">$30</span><span class="reg-price">$33.30 (+Tax 11%)</span></td>
                 <td><span class="price">$60</span><span class="reg-price">$66.60 (+Tax 11%)</span></td>
                 <td><span class="price">$80</span><span class="reg-price">$88.80 (+Tax 11%)</span></td>
+            </tr>
+            <tr class="row-yellow tier-dead">
+                <td class="tier-cell">
+                    <div class="tier-name yellow-dot"><span class="dot">●</span> YELLOW DOT <span class="thc-label">25-27%</span></div>
+                    <div class="tier-desc">STANDARD AAA</div>
+                </td>
+                <td colspan="5" class="oos-text">OUT OF STOCK</td>
             </tr>
         </tbody>
     </table>
