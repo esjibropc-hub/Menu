@@ -107,18 +107,17 @@
     /* Enlarged Headers */
     th { font-size: 3.8vh; border-bottom: 4px solid #30363d; color: #c9d1d9; text-transform: uppercase; padding: 1.5vh 0; } 
     td { border-bottom: 2px solid #30363d; vertical-align: middle; transition: all 0.3s ease; }
+    tbody tr { height: 21vh; } /* Forces rows to vertically expand and fill the void */
     
     /* Category Differentiation with Optical Row Anchoring */
     .row-white { background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, transparent 60%); }
     .row-blue { background: linear-gradient(90deg, rgba(88,166,255,0.08) 0%, transparent 60%); }
     .row-red { background: linear-gradient(90deg, rgba(248,81,73,0.08) 0%, transparent 60%); }
-    .row-yellow { background: linear-gradient(90deg, rgba(227,179,65,0.08) 0%, transparent 60%); }
 
     .tier-cell { text-align: left; padding-left: 3vw; }
     .row-white .tier-cell { border-left: 1.5vw solid white; }
     .row-blue .tier-cell { border-left: 1.5vw solid #58a6ff; }
     .row-red .tier-cell { border-left: 1.5vw solid #f85149; }
-    .row-yellow .tier-cell { border-left: 1.5vw solid #e3b341; }
 
     .tier-name { font-size: 4.2vh; font-weight: 900; display: flex; align-items: center; gap: 0.8vw; white-space: nowrap; }
     .dot { font-size: 4vh; }
@@ -138,29 +137,14 @@
     .white-dot { color: white; }
     .blue-dot { color: #58a6ff; }
     .red-dot { color: #f85149; }
-    .yellow-dot { color: #e3b341; }
 
-    /* --- DEAD TIER EXECUTION --- */
-    .tier-dead {
-        opacity: 0.3 !important;
-        filter: grayscale(100%) !important;
-        pointer-events: none;
-    }
-    .oos-text {
-        font-size: 4.5vh;
-        font-weight: 900;
-        color: rgba(255, 255, 255, 0.7);
-        letter-spacing: 1vw;
-        text-transform: uppercase;
-    }
-    
     /* --- REMOTE CONTROL FOCUS MODE UI --- */
     tbody { transition: all 0.3s ease; }
-    tbody.focus-mode tr:not(.tier-dead) { 
+    tbody.focus-mode tr { 
         opacity: 0.15; 
         filter: grayscale(80%); 
     }
-    tbody.focus-mode tr.active-tier:not(.tier-dead) { 
+    tbody.focus-mode tr.active-tier { 
         opacity: 1; 
         filter: grayscale(0%);
     }
@@ -168,7 +152,6 @@
     tbody.focus-mode tr.row-white.active-tier { background: linear-gradient(90deg, rgba(255,255,255,0.15) 0%, transparent 80%); }
     tbody.focus-mode tr.row-blue.active-tier { background: linear-gradient(90deg, rgba(88,166,255,0.2) 0%, transparent 80%); }
     tbody.focus-mode tr.row-red.active-tier { background: linear-gradient(90deg, rgba(248,81,73,0.2) 0%, transparent 80%); }
-    tbody.focus-mode tr.row-yellow.active-tier { background: linear-gradient(90deg, rgba(227,179,65,0.2) 0%, transparent 80%); }
 
     /* Redesigned Deals Section - Extracted from Table for Flawless Edge Bleed */
     .deals-section { 
@@ -311,8 +294,7 @@
         var rows = [
             document.querySelector('.row-white'),
             document.querySelector('.row-blue'),
-            document.querySelector('.row-red'),
-            document.querySelector('.row-yellow')
+            document.querySelector('.row-red')
         ];
         
         var isStealth = body.className.indexOf('stealth-active') > -1;
@@ -321,7 +303,6 @@
         if (code === 49) targetIndex = 0; // Key 1
         if (code === 50) targetIndex = 1; // Key 2
         if (code === 51) targetIndex = 2; // Key 3
-        if (code === 52) targetIndex = 3; // Key 4
 
         // Execute Isolation Protocol
         if (targetIndex > -1 && !isStealth) {
@@ -341,7 +322,7 @@
                 targetRow.className += ' active-tier';
             }
         } else if (!isStealth && code !== 13) {
-            // Any other key (excluding Enter/13 to avoid conflicts) wipes the highlight
+            // Any other key wipes the highlight
             tbody.className = tbody.className.replace('focus-mode', '').trim();
             for (var k = 0; k < rows.length; k++) {
                 rows[k].className = rows[k].className.replace('active-tier', '').trim();
@@ -412,13 +393,6 @@
                 <td><span class="price">$30</span><span class="reg-price">$33.30 (+Tax 11%)</span></td>
                 <td><span class="price">$60</span><span class="reg-price">$66.60 (+Tax 11%)</span></td>
                 <td><span class="price">$80</span><span class="reg-price">$88.80 (+Tax 11%)</span></td>
-            </tr>
-            <tr class="row-yellow tier-dead">
-                <td class="tier-cell">
-                    <div class="tier-name yellow-dot"><span class="dot">●</span> YELLOW DOT <span class="thc-label">25-27%</span></div>
-                    <div class="tier-desc">STANDARD AAA</div>
-                </td>
-                <td colspan="5" class="oos-text">OUT OF STOCK</td>
             </tr>
         </tbody>
     </table>
