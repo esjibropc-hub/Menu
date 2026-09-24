@@ -20,7 +20,6 @@
         color: white; 
         font-family: sans-serif; 
         overflow: hidden; 
-        transition: background-color 0.8s ease;
         outline: none; 
     }
     
@@ -48,7 +47,6 @@
         border-bottom: 4px solid #30363d; 
         height: 12vh;
         position: relative; 
-        transition: border-bottom-color 0.8s ease;
     }
     .header h1 { color: #3fb950; font-size: 5.5vh; letter-spacing: 2px; text-transform: uppercase; }
     .header p { margin-top: 0.5vh; font-size: 2.5vh; color: #8b949e; }
@@ -100,13 +98,16 @@
         border-spacing: 0;
         text-align: center; 
         table-layout: fixed; 
-        transition: all 0.2s ease;
     }
+    th:nth-child(1) { width: 34%; } 
+    th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6) { width: 13.2%; }
+
+    /* Enlarged Headers */
+    th { font-size: 4.5vh; border-bottom: 4px solid #30363d; color: #c9d1d9; text-transform: uppercase; padding: 1.5vh 0; } 
+    td { border-bottom: 2px solid #30363d; vertical-align: middle; }
     
-    /* Hardware Accelerated Specific Transitions */
-    th:nth-child(1) { width: 34%; transition: opacity 0.2s ease, filter 0.2s ease; } 
-    th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6) { width: 13.2%; transition: opacity 0.2s ease, filter 0.2s ease, border-bottom 0.2s ease, color 0.2s ease, text-shadow 0.2s ease; }
-    td { border-bottom: 2px solid #30363d; vertical-align: middle; transition: opacity 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
+    /* Force exactly 3 equal height rows */
+    tbody tr { height: 33.33%; }
     
     /* Category Differentiation with Optical Row Anchoring */
     .row-white { background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, transparent 60%); }
@@ -118,14 +119,15 @@
     .row-blue .tier-cell { border-left: 1.5vw solid #58a6ff; }
     .row-red .tier-cell { border-left: 1.5vw solid #f85149; }
 
-    .tier-name { font-size: 4.2vh; font-weight: 900; display: flex; align-items: center; gap: 0.8vw; white-space: nowrap; }
-    .dot { font-size: 4vh; }
-    .thc-label { font-size: 4.2vh; font-weight: 900; margin-left: 0.5vw; white-space: nowrap; }
-    .tier-desc { font-size: 2.2vh; color: #c9d1d9; margin-top: 0.5vh; margin-left: 2.5vw; font-weight: bold; }
+    /* Upscaled Typography */
+    .tier-name { font-size: 5vh; font-weight: 900; display: flex; align-items: center; gap: 0.8vw; white-space: nowrap; }
+    .dot { font-size: 4.5vh; }
+    .thc-label { font-size: 5vh; font-weight: 900; margin-left: 0.5vw; white-space: nowrap; }
+    .tier-desc { font-size: 2.8vh; color: #c9d1d9; margin-top: 0.5vh; margin-left: 2.5vw; font-weight: bold; }
     
     /* Hyper-Legible Prices & Adjusted Contrast */
-    .price { font-size: 6vh; font-weight: 900; display: block; letter-spacing: 1px; }
-    .reg-price { font-size: 2.6vh; margin-top: 0.2vh; display: block; font-weight: bold; color: rgba(255, 255, 255, 0.95); } 
+    .price { font-size: 7.5vh; font-weight: 900; display: block; letter-spacing: 1px; }
+    .reg-price { font-size: 3vh; margin-top: 0.2vh; display: block; font-weight: bold; color: rgba(255, 255, 255, 0.95); } 
 
     /* Color Coding Prices */
     .row-white .price { color: white; }
@@ -137,8 +139,7 @@
     .blue-dot { color: #58a6ff; }
     .red-dot { color: #f85149; }
 
-    /* --- REMOTE CONTROL ROW FOCUS UI --- */
-    tbody { transition: all 0.2s ease; }
+    /* --- REMOTE CONTROL ROW FOCUS UI (INSTANT SNAP) --- */
     tbody.focus-mode tr { 
         opacity: 0.15; 
         filter: grayscale(80%); 
@@ -151,7 +152,7 @@
     tbody.focus-mode tr.row-blue.active-tier { background: linear-gradient(90deg, rgba(88,166,255,0.2) 0%, transparent 80%); }
     tbody.focus-mode tr.row-red.active-tier { background: linear-gradient(90deg, rgba(248,81,73,0.2) 0%, transparent 80%); }
 
-    /* --- REMOTE CONTROL COLUMN FOCUS UI (GPU OPTIMIZED) --- */
+    /* --- REMOTE CONTROL COLUMN FOCUS UI (INSTANT SNAP - ZERO LAG) --- */
     table.col-focus-1 th:not(:nth-child(2)), table.col-focus-1 td:not(:nth-child(2)),
     table.col-focus-2 th:not(:nth-child(3)), table.col-focus-2 td:not(:nth-child(3)),
     table.col-focus-3 th:not(:nth-child(4)), table.col-focus-3 td:not(:nth-child(4)),
@@ -332,7 +333,7 @@
         var isStealth = body.className.indexOf('stealth-active') > -1;
         if (isStealth) return;
 
-        // Wipe all highlights via fast regex
+        // Wipe all highlights via fast string manipulation
         function clearFocus() {
             tbody.className = tbody.className.replace('focus-mode', '').trim();
             table.className = table.className.replace(/col-focus-[1-5]/g, '').trim();
