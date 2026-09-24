@@ -100,14 +100,13 @@
         border-spacing: 0;
         text-align: center; 
         table-layout: fixed; 
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
     }
-    th:nth-child(1) { width: 34%; transition: all 0.3s ease; } 
-    th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6) { width: 13.2%; transition: all 0.3s ease; }
-
-    /* Enlarged Headers */
-    th { font-size: 3.8vh; border-bottom: 4px solid #30363d; color: #c9d1d9; text-transform: uppercase; padding: 1.5vh 0; } 
-    td { border-bottom: 2px solid #30363d; vertical-align: middle; transition: all 0.3s ease; }
+    
+    /* Hardware Accelerated Specific Transitions */
+    th:nth-child(1) { width: 34%; transition: opacity 0.2s ease, filter 0.2s ease; } 
+    th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6) { width: 13.2%; transition: opacity 0.2s ease, filter 0.2s ease, border-bottom 0.2s ease, color 0.2s ease, text-shadow 0.2s ease; }
+    td { border-bottom: 2px solid #30363d; vertical-align: middle; transition: opacity 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
     
     /* Category Differentiation with Optical Row Anchoring */
     .row-white { background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, transparent 60%); }
@@ -139,7 +138,7 @@
     .red-dot { color: #f85149; }
 
     /* --- REMOTE CONTROL ROW FOCUS UI --- */
-    tbody { transition: all 0.3s ease; }
+    tbody { transition: all 0.2s ease; }
     tbody.focus-mode tr { 
         opacity: 0.15; 
         filter: grayscale(80%); 
@@ -152,24 +151,37 @@
     tbody.focus-mode tr.row-blue.active-tier { background: linear-gradient(90deg, rgba(88,166,255,0.2) 0%, transparent 80%); }
     tbody.focus-mode tr.row-red.active-tier { background: linear-gradient(90deg, rgba(248,81,73,0.2) 0%, transparent 80%); }
 
-    /* --- REMOTE CONTROL COLUMN FOCUS UI --- */
-    table.col-focus-mode th:not(.active-col), 
-    table.col-focus-mode td:not(.active-col) { 
+    /* --- REMOTE CONTROL COLUMN FOCUS UI (GPU OPTIMIZED) --- */
+    table.col-focus-1 th:not(:nth-child(2)), table.col-focus-1 td:not(:nth-child(2)),
+    table.col-focus-2 th:not(:nth-child(3)), table.col-focus-2 td:not(:nth-child(3)),
+    table.col-focus-3 th:not(:nth-child(4)), table.col-focus-3 td:not(:nth-child(4)),
+    table.col-focus-4 th:not(:nth-child(5)), table.col-focus-4 td:not(:nth-child(5)),
+    table.col-focus-5 th:not(:nth-child(6)), table.col-focus-5 td:not(:nth-child(6)) {
         opacity: 0.15; 
         filter: grayscale(80%); 
     }
-    table.col-focus-mode .active-col { 
-        opacity: 1; 
-        filter: grayscale(0%);
-    }
-    table.col-focus-mode th.active-col {
+
+    table.col-focus-1 th:nth-child(2),
+    table.col-focus-2 th:nth-child(3),
+    table.col-focus-3 th:nth-child(4),
+    table.col-focus-4 th:nth-child(5),
+    table.col-focus-5 th:nth-child(6) {
         color: #4eff5a;
         border-bottom: 4px solid #4eff5a;
         text-shadow: 0 0 1vh rgba(63, 185, 80, 0.8);
+        opacity: 1; 
+        filter: grayscale(0%);
     }
-    table.col-focus-mode td.active-col {
+
+    table.col-focus-1 td:nth-child(2),
+    table.col-focus-2 td:nth-child(3),
+    table.col-focus-3 td:nth-child(4),
+    table.col-focus-4 td:nth-child(5),
+    table.col-focus-5 td:nth-child(6) {
         background: linear-gradient(180deg, rgba(63, 185, 80, 0.12) 0%, transparent 90%);
         box-shadow: inset 2px 0 0 rgba(63, 185, 80, 0.4), inset -2px 0 0 rgba(63, 185, 80, 0.4);
+        opacity: 1; 
+        filter: grayscale(0%);
     }
 
     /* Redesigned Deals Section - Extracted from Table for Flawless Edge Bleed */
@@ -311,8 +323,6 @@
 
         var tbody = document.querySelector('tbody');
         var table = document.querySelector('table');
-        var ths = document.querySelectorAll('th');
-        var trs = document.querySelectorAll('tbody tr');
         var rows = [
             document.querySelector('.row-white'),
             document.querySelector('.row-blue'),
@@ -322,16 +332,12 @@
         var isStealth = body.className.indexOf('stealth-active') > -1;
         if (isStealth) return;
 
-        // Wipe all highlights
+        // Wipe all highlights via fast regex
         function clearFocus() {
-            tbody.className = tbody.className.replace('focus-mode', '').replace(/  +/g, ' ').trim();
-            table.className = table.className.replace('col-focus-mode', '').replace(/  +/g, ' ').trim();
+            tbody.className = tbody.className.replace('focus-mode', '').trim();
+            table.className = table.className.replace(/col-focus-[1-5]/g, '').trim();
             for (var i = 0; i < rows.length; i++) {
-                rows[i].className = rows[i].className.replace('active-tier', '').replace(/  +/g, ' ').trim();
-            }
-            var allCells = document.querySelectorAll('th, td');
-            for (var j = 0; j < allCells.length; j++) {
-                allCells[j].className = allCells[j].className.replace('active-col', '').replace(/  +/g, ' ').trim();
+                rows[i].className = rows[i].className.replace('active-tier', '').trim();
             }
         }
 
@@ -358,15 +364,11 @@
                 targetRow.className += ' active-tier';
             }
         } else if (targetColIndex > -1) {
-            var targetTh = ths[targetColIndex];
-            var wasActiveCol = targetTh.className.indexOf('active-col') > -1;
+            var focusClass = 'col-focus-' + targetColIndex;
+            var wasActiveCol = table.className.indexOf(focusClass) > -1;
             clearFocus();
             if (!wasActiveCol) {
-                table.className += ' col-focus-mode';
-                targetTh.className += ' active-col';
-                for (var r = 0; r < trs.length; r++) {
-                    trs[r].children[targetColIndex].className += ' active-col';
-                }
+                table.className += ' ' + focusClass;
             }
         } else if (code !== 13) {
             // Any unused key drops all active focus
