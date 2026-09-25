@@ -55,12 +55,7 @@
     .header-right { text-align: right; }
     .sourced { border: 2px solid #3fb950; color: #3fb950; padding: 1vh 1.5vw; border-radius: 6px; font-weight: bold; font-size: 2.2vh; display: inline-block;}
 
-    /* REALEAF Neon Logo - Massive Glow & Hardware Accelerated */
-    @keyframes neonHum {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.85; }
-    }
-
+    /* REALEAF Static Neon Logo - Purged animation to save GPU */
     .header-center {
         position: absolute;
         left: 50%;
@@ -84,12 +79,6 @@
             0 0 15vh rgba(63, 185, 80, 0.6); 
         letter-spacing: 0.8vw;
         text-transform: uppercase;
-        
-        /* GPU Forcing */
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        will-change: opacity;
-        animation: neonHum 3s infinite ease-in-out;
         transition: all 1.5s ease;
     }
 
@@ -199,7 +188,7 @@
         filter: grayscale(0%);
     }
 
-    /* Redesigned Deals Section - Extracted from Table for Flawless Edge Bleed */
+    /* Redesigned Deals Section */
     .deals-section { 
         width: 100vw;
         height: 18vh;
@@ -210,14 +199,14 @@
         padding: 0 1vw; 
     }
     
-    /* --- KINETIC RESTING STATE (8-SECOND BREATHING LOOP) --- */
-    @keyframes kineticBreathe {
-        0%, 100% { border-color: rgba(255,255,255,0.25); box-shadow: 0 8px 16px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.1); }
-        50% { border-color: rgba(63, 185, 80, 0.7); box-shadow: 0 8px 24px rgba(0,0,0,0.6), inset 0 2px 15px rgba(63, 185, 80, 0.25); }
+    /* --- KINETIC FLOAT (ZERO PAINT GPU ANIMATION) --- */
+    @keyframes kineticFloat {
+        0%, 100% { transform: translate3d(0, 0, 0); border-top-color: #3fb950; }
+        50% { transform: translate3d(0, -0.8vh, 0); border-top-color: #4eff5a; }
     }
 
     .deal-card { 
-        background: rgba(0, 0, 0, 0.35); 
+        background: rgba(0, 0, 0, 0.5); 
         padding: 2.2vh 1vw; 
         border-radius: 12px; 
         width: 23.5%; 
@@ -225,10 +214,16 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        border: 1px solid rgba(255,255,255,0.25); 
-        box-shadow: 0 8px 16px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.1); 
+        border: 1px solid rgba(255,255,255,0.15); 
+        border-top: 4px solid #3fb950; /* Thick top border for instant visual distinction */
+        box-shadow: 0 8px 16px rgba(0,0,0,0.4); 
         text-align: center; 
-        animation: kineticBreathe 8s infinite ease-in-out;
+        
+        /* Hardware Accel Lock */
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        will-change: transform;
+        animation: kineticFloat 6s infinite ease-in-out;
     } 
     
     .deals-item { font-size: 3vh; font-weight: 900; color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.9); display: block; line-height: 1.25; letter-spacing: 0.5px; } 
