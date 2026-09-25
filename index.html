@@ -21,6 +21,7 @@
         font-family: sans-serif; 
         overflow: hidden; 
         outline: none; 
+        transition: background-color 1.5s ease;
     }
     
     body {
@@ -35,7 +36,7 @@
         display: flex; 
         flex-direction: column; 
         background-color: #161b22; 
-        transition: background-color 0.8s ease;
+        transition: background-color 1.5s ease;
     }
     
     /* Header scales to screen height */
@@ -47,6 +48,7 @@
         border-bottom: 4px solid #30363d; 
         height: 12vh;
         position: relative; 
+        transition: border-bottom-color 1.5s ease;
     }
     .header h1 { color: #3fb950; font-size: 5.5vh; letter-spacing: 2px; text-transform: uppercase; }
     .header p { margin-top: 0.5vh; font-size: 2.5vh; color: #8b949e; }
@@ -88,6 +90,7 @@
         transform: translateZ(0);
         will-change: opacity;
         animation: neonHum 3s infinite ease-in-out;
+        transition: all 1.5s ease;
     }
 
     /* Table Layout - Mathematically locked to available vertical space */
@@ -103,8 +106,8 @@
     th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6) { width: 13.2%; }
 
     /* Enlarged Headers */
-    th { font-size: 4.5vh; border-bottom: 4px solid #30363d; color: #c9d1d9; text-transform: uppercase; padding: 1.5vh 0; } 
-    td { border-bottom: 2px solid #30363d; vertical-align: middle; }
+    th { font-size: 4.5vh; border-bottom: 4px solid #30363d; color: #c9d1d9; text-transform: uppercase; padding: 1.5vh 0; transition: border-bottom-color 1.5s ease; } 
+    td { border-bottom: 2px solid #30363d; vertical-align: middle; transition: border-bottom-color 1.5s ease; }
     
     /* Force exactly 3 equal height rows */
     tbody tr { height: 33.33%; }
@@ -138,6 +141,17 @@
     .white-dot { color: white; }
     .blue-dot { color: #58a6ff; }
     .red-dot { color: #f85149; }
+
+    /* --- AMBIENT GLARE PROTOCOL (DAY MODE) --- */
+    body.ambient-day { background-color: #000000; }
+    body.ambient-day .menu-container { background-color: #030406; }
+    body.ambient-day .header { border-bottom-color: #484f58; }
+    body.ambient-day th, body.ambient-day td { border-bottom-color: #484f58; }
+    body.ambient-day .logo-neon {
+        text-shadow: none;
+        color: #111;
+        -webkit-text-stroke: 0.6vh #4eff5a;
+    }
 
     /* --- REMOTE CONTROL ROW FOCUS UI (INSTANT SNAP) --- */
     tbody.focus-mode tr { 
@@ -196,7 +210,12 @@
         padding: 0 1vw; 
     }
     
-    /* 3D Deal Cards Forcing - Vidaa OS Compatibility Lock */
+    /* --- KINETIC RESTING STATE (8-SECOND BREATHING LOOP) --- */
+    @keyframes kineticBreathe {
+        0%, 100% { border-color: rgba(255,255,255,0.25); box-shadow: 0 8px 16px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.1); }
+        50% { border-color: rgba(63, 185, 80, 0.7); box-shadow: 0 8px 24px rgba(0,0,0,0.6), inset 0 2px 15px rgba(63, 185, 80, 0.25); }
+    }
+
     .deal-card { 
         background: rgba(0, 0, 0, 0.35); 
         padding: 2.2vh 1vw; 
@@ -209,6 +228,7 @@
         border: 1px solid rgba(255,255,255,0.25); 
         box-shadow: 0 8px 16px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.1); 
         text-align: center; 
+        animation: kineticBreathe 8s infinite ease-in-out;
     } 
     
     .deals-item { font-size: 3vh; font-weight: 900; color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.9); display: block; line-height: 1.25; letter-spacing: 0.5px; } 
@@ -295,9 +315,26 @@
     }
 </style>
 <script>
-    // Force Hardware Focus Lock on Boot
+    // ES5 Ambient Logic (Polls every 60 seconds)
+    function checkAmbient() {
+        var hour = new Date().getHours();
+        var body = document.body;
+        var isDay = (hour >= 10 && hour < 18);
+        
+        if (isDay) {
+            if (body.className.indexOf('ambient-day') === -1) {
+                body.className += ' ambient-day';
+            }
+        } else {
+            body.className = body.className.replace('ambient-day', '').replace(/  +/g, ' ').trim();
+        }
+    }
+
+    // Force Hardware Focus Lock & Boot Algorithms
     window.onload = function() {
         document.body.focus();
+        checkAmbient();
+        setInterval(checkAmbient, 60000);
     };
 
     // Raw ES5 Hardware KeyCode Intercept
