@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flower Menu Fullscreen</title>
 <style>
-    /* Universal Wipe - Kills TV default margins/safe zones */
+    /* Universal Wipe */
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
     }
 
-    /* Root locked absolutely to viewport to bypass scrollbar bugs */
+    /* Root Hardware Lock */
     html, body { 
         width: 100vw; 
         height: 100vh; 
@@ -39,7 +39,7 @@
         transition: background-color 1.5s ease;
     }
     
-    /* Header scales to screen height */
+    /* Header */
     .header { 
         display: flex; 
         justify-content: space-between; 
@@ -55,7 +55,7 @@
     .header-right { text-align: right; }
     .sourced { border: 2px solid #3fb950; color: #3fb950; padding: 1vh 1.5vw; border-radius: 6px; font-weight: bold; font-size: 2.2vh; display: inline-block;}
 
-    /* REALEAF Static Neon Logo - Purged animation to save GPU */
+    /* Static Logo Center */
     .header-center {
         position: absolute;
         left: 50%;
@@ -82,7 +82,7 @@
         transition: all 1.5s ease;
     }
 
-    /* Table Layout - Mathematically locked to available vertical space */
+    /* Table Architecture */
     table { 
         width: 100vw; 
         height: 64.5vh; 
@@ -94,14 +94,11 @@
     th:nth-child(1) { width: 34%; } 
     th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6) { width: 13.2%; }
 
-    /* Enlarged Headers */
     th { font-size: 4.5vh; border-bottom: 4px solid #30363d; color: #c9d1d9; text-transform: uppercase; padding: 1.5vh 0; transition: border-bottom-color 1.5s ease; } 
     td { border-bottom: 2px solid #30363d; vertical-align: middle; transition: border-bottom-color 1.5s ease; }
     
-    /* Force exactly 3 equal height rows */
     tbody tr { height: 33.33%; }
     
-    /* Category Differentiation with Optical Row Anchoring */
     .row-white { background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, transparent 60%); }
     .row-blue { background: linear-gradient(90deg, rgba(88,166,255,0.08) 0%, transparent 60%); }
     .row-red { background: linear-gradient(90deg, rgba(248,81,73,0.08) 0%, transparent 60%); }
@@ -111,27 +108,23 @@
     .row-blue .tier-cell { border-left: 1.5vw solid #58a6ff; }
     .row-red .tier-cell { border-left: 1.5vw solid #f85149; }
 
-    /* Upscaled Typography */
     .tier-name { font-size: 5vh; font-weight: 900; display: flex; align-items: center; gap: 0.8vw; white-space: nowrap; }
     .dot { font-size: 4.5vh; }
     .thc-label { font-size: 5vh; font-weight: 900; margin-left: 0.5vw; white-space: nowrap; }
     .tier-desc { font-size: 2.8vh; color: #c9d1d9; margin-top: 0.5vh; margin-left: 2.5vw; font-weight: bold; }
     
-    /* Hyper-Legible Prices & Hardware Locked Contrast */
     .price { font-size: 7.5vh; font-weight: 900; display: block; letter-spacing: 1px; }
     .reg-price { font-size: 2.4vh; margin-top: 0.2vh; display: block; font-weight: bold; color: rgba(255, 255, 255, 0.95); white-space: nowrap; } 
 
-    /* Color Coding Prices */
     .row-white .price { color: white; }
     .row-blue .price { color: #6db1ff; } 
     .row-red .price { color: #ff6a64; } 
     
-    /* Tier Colors for text */
     .white-dot { color: white; }
     .blue-dot { color: #58a6ff; }
     .red-dot { color: #f85149; }
 
-    /* --- AMBIENT GLARE PROTOCOL (DAY MODE) --- */
+    /* --- AMBIENT GLARE ENGINE --- */
     body.ambient-day { background-color: #000000; }
     body.ambient-day .menu-container { background-color: #030406; }
     body.ambient-day .header { border-bottom-color: #484f58; }
@@ -142,7 +135,7 @@
         -webkit-text-stroke: 0.6vh #4eff5a;
     }
 
-    /* --- REMOTE CONTROL ROW FOCUS UI (INSTANT SNAP) --- */
+    /* --- SNAP FOCUS UI --- */
     tbody.focus-mode tr { 
         opacity: 0.15; 
         filter: grayscale(80%); 
@@ -155,7 +148,6 @@
     tbody.focus-mode tr.row-blue.active-tier { background: linear-gradient(90deg, rgba(88,166,255,0.2) 0%, transparent 80%); }
     tbody.focus-mode tr.row-red.active-tier { background: linear-gradient(90deg, rgba(248,81,73,0.2) 0%, transparent 80%); }
 
-    /* --- REMOTE CONTROL COLUMN FOCUS UI (INSTANT SNAP - ZERO LAG) --- */
     table.col-focus-1 th:not(:nth-child(2)), table.col-focus-1 td:not(:nth-child(2)),
     table.col-focus-2 th:not(:nth-child(3)), table.col-focus-2 td:not(:nth-child(3)),
     table.col-focus-3 th:not(:nth-child(4)), table.col-focus-3 td:not(:nth-child(4)),
@@ -165,30 +157,16 @@
         filter: grayscale(80%); 
     }
 
-    table.col-focus-1 th:nth-child(2),
-    table.col-focus-2 th:nth-child(3),
-    table.col-focus-3 th:nth-child(4),
-    table.col-focus-4 th:nth-child(5),
-    table.col-focus-5 th:nth-child(6) {
-        color: #4eff5a;
-        border-bottom: 4px solid #4eff5a;
-        text-shadow: 0 0 1vh rgba(63, 185, 80, 0.8);
-        opacity: 1; 
-        filter: grayscale(0%);
+    table.col-focus-1 th:nth-child(2), table.col-focus-2 th:nth-child(3), table.col-focus-3 th:nth-child(4), table.col-focus-4 th:nth-child(5), table.col-focus-5 th:nth-child(6) {
+        color: #4eff5a; border-bottom: 4px solid #4eff5a; text-shadow: 0 0 1vh rgba(63, 185, 80, 0.8); opacity: 1; filter: grayscale(0%);
     }
 
-    table.col-focus-1 td:nth-child(2),
-    table.col-focus-2 td:nth-child(3),
-    table.col-focus-3 td:nth-child(4),
-    table.col-focus-4 td:nth-child(5),
-    table.col-focus-5 td:nth-child(6) {
+    table.col-focus-1 td:nth-child(2), table.col-focus-2 td:nth-child(3), table.col-focus-3 td:nth-child(4), table.col-focus-4 td:nth-child(5), table.col-focus-5 td:nth-child(6) {
         background: linear-gradient(180deg, rgba(63, 185, 80, 0.12) 0%, transparent 90%);
-        box-shadow: inset 2px 0 0 rgba(63, 185, 80, 0.4), inset -2px 0 0 rgba(63, 185, 80, 0.4);
-        opacity: 1; 
-        filter: grayscale(0%);
+        box-shadow: inset 2px 0 0 rgba(63, 185, 80, 0.4), inset -2px 0 0 rgba(63, 185, 80, 0.4); opacity: 1; filter: grayscale(0%);
     }
 
-    /* Redesigned Deals Section */
+    /* Deals Section - Static anchors */
     .deals-section { 
         width: 100vw;
         height: 18vh;
@@ -199,12 +177,6 @@
         padding: 0 1vw; 
     }
     
-    /* --- KINETIC FLOAT (ZERO PAINT GPU ANIMATION) --- */
-    @keyframes kineticFloat {
-        0%, 100% { transform: translate3d(0, 0, 0); border-top-color: #3fb950; }
-        50% { transform: translate3d(0, -0.8vh, 0); border-top-color: #4eff5a; }
-    }
-
     .deal-card { 
         background: rgba(0, 0, 0, 0.5); 
         padding: 2.2vh 1vw; 
@@ -215,64 +187,43 @@
         flex-direction: column;
         justify-content: center;
         border: 1px solid rgba(255,255,255,0.15); 
-        border-top: 4px solid #3fb950; /* Thick top border for instant visual distinction */
+        border-top: 4px solid #3fb950; 
         box-shadow: 0 8px 16px rgba(0,0,0,0.4); 
         text-align: center; 
-        
-        /* Hardware Accel Lock */
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        will-change: transform;
-        animation: kineticFloat 6s infinite ease-in-out;
     } 
     
     .deals-item { font-size: 3vh; font-weight: 900; color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.9); display: block; line-height: 1.25; letter-spacing: 0.5px; } 
     .deals-reg { color: #ffffff; font-size: 2vh; font-weight: bold; margin-top: 0.8vh; display: block; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); }
 
-    /* Gapless Live Ticker System */
+    /* --- PAGINATED TICKER ENGINE --- */
     .ticker-wrap {
         width: 100vw;
         height: 5.5vh;
         background-color: #0d1117;
         border-top: 2px solid rgba(63, 185, 80, 0.5);
-        overflow: hidden;
         display: flex;
         align-items: center;
+        justify-content: center;
     }
     
-    .ticker-move {
-        display: flex;
-        width: max-content;
-        /* GPU Forcing */
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-        will-change: transform;
-        animation: tickerAnim 25s linear infinite;
-    }
-
-    .ticker-item {
-        display: flex;
-        align-items: center;
-        white-space: nowrap;
+    .ticker-text {
         font-size: 2.8vh;
         font-weight: 900;
         color: white;
         text-transform: uppercase;
         letter-spacing: 0.15vw;
-    }
-    
-    .ticker-item .sep {
-        color: #3fb950;
-        margin: 0 2vw;
-        text-shadow: 0 0 1vh rgba(63, 185, 80, 0.8);
-    }
-    
-    @keyframes tickerAnim {
-        0% { transform: translate3d(0, 0, 0); }
-        100% { transform: translate3d(-50%, 0, 0); }
+        transition: opacity 0.6s ease;
+        opacity: 1;
+        /* Hardware accel just for the fade */
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        will-change: opacity;
     }
 
-    /* Copyright Stamp */
+    .ticker-text.fade { opacity: 0; }
+    .ticker-text .sep { color: #3fb950; margin: 0 2vw; text-shadow: 0 0 1vh rgba(63, 185, 80, 0.8); }
+
+    /* Copyright */
     .copyright-stamp {
         position: absolute;
         bottom: 0.8vh;
@@ -285,59 +236,60 @@
         text-transform: uppercase;
     }
 
-    /* --- STEALTH MODE PHYSICS --- */
-    table, .deals-section, .ticker-wrap, .header > div:first-child, .header-right, .copyright-stamp {
-        transition: opacity 0.8s ease;
-    }
-
+    /* Stealth Mode */
+    table, .deals-section, .ticker-wrap, .header > div:first-child, .header-right, .copyright-stamp { transition: opacity 0.8s ease; }
     .stealth-active { background-color: #000000 !important; }
     .stealth-active .menu-container { background-color: #000000 !important; }
     .stealth-active .header { border-bottom-color: transparent; }
-    
-    .stealth-active table, 
-    .stealth-active .deals-section, 
-    .stealth-active .ticker-wrap, 
-    .stealth-active .header > div:first-child, 
-    .stealth-active .header-right, 
-    .stealth-active .copyright-stamp {
-        opacity: 0;
-        pointer-events: none;
-    }
-
-    .stealth-active .header-center {
-        top: 50vh;
-        transform: translate(-50%, -50%) scale(2.5);
-    }
+    .stealth-active table, .stealth-active .deals-section, .stealth-active .ticker-wrap, .stealth-active .header > div:first-child, .stealth-active .header-right, .stealth-active .copyright-stamp { opacity: 0; pointer-events: none; }
+    .stealth-active .header-center { top: 50vh; transform: translate(-50%, -50%) scale(2.5); }
 </style>
 <script>
-    // ES5 Ambient Logic (Polls every 60 seconds)
+    // System Ambient Intelligence
     function checkAmbient() {
         var hour = new Date().getHours();
         var body = document.body;
         var isDay = (hour >= 10 && hour < 18);
         
         if (isDay) {
-            if (body.className.indexOf('ambient-day') === -1) {
-                body.className += ' ambient-day';
-            }
+            if (body.className.indexOf('ambient-day') === -1) body.className += ' ambient-day';
         } else {
             body.className = body.className.replace('ambient-day', '').replace(/  +/g, ' ').trim();
         }
     }
 
-    // Force Hardware Focus Lock & Boot Algorithms
+    // Paginated Ticker Engine
+    function initTicker() {
+        var ticker = document.getElementById('sys-ticker');
+        var messages = [
+            "WELCOME TO REALEAF <span class='sep'>●</span> SASKATCHEWAN'S FINEST CRAFT CANNABIS",
+            "NEW INVENTORY DROPS EVERY 2 WEEKS ON THURSDAYS",
+            "OPEN 10 TO 10 EVERYDAY"
+        ];
+        var idx = 0;
+
+        setInterval(function() {
+            ticker.className = 'ticker-text fade';
+            setTimeout(function() {
+                idx = (idx + 1) % messages.length;
+                ticker.innerHTML = messages[idx];
+                ticker.className = 'ticker-text';
+            }, 600); // Wait for CSS opacity curve to drop to 0
+        }, 8000); // 8 second cycle
+    }
+
     window.onload = function() {
         document.body.focus();
         checkAmbient();
+        initTicker();
         setInterval(checkAmbient, 60000);
     };
 
-    // Raw ES5 Hardware KeyCode Intercept
+    // Hardware Intercept Array
     window.addEventListener('keydown', function(e) {
         var code = e.keyCode || e.which;
         var body = document.body;
         
-        // Key '9' (keyCode 57) triggers Stealth Mode
         if (code === 57) {
             if (body.className.indexOf('stealth-active') > -1) {
                 body.className = body.className.replace('stealth-active', '').trim();
@@ -347,7 +299,6 @@
             return;
         }
 
-        // Key '0' (keyCode 48) triggers instant manual cache bypass
         if (code === 48) {
             var cleanUrl = window.location.href.split('?')[0];
             window.location.replace(cleanUrl + '?v=' + new Date().getTime());
@@ -365,7 +316,6 @@
         var isStealth = body.className.indexOf('stealth-active') > -1;
         if (isStealth) return;
 
-        // Wipe all highlights via fast string manipulation
         function clearFocus() {
             tbody.className = tbody.className.replace('focus-mode', '').trim();
             table.className = table.className.replace(/col-focus-[1-5]/g, '').trim();
@@ -374,20 +324,18 @@
             }
         }
 
-        // Map Input Codes
         var targetRowIndex = -1;
-        if (code === 49) targetRowIndex = 0; // Key 1
-        if (code === 50) targetRowIndex = 1; // Key 2
-        if (code === 51) targetRowIndex = 2; // Key 3
+        if (code === 49) targetRowIndex = 0; 
+        if (code === 50) targetRowIndex = 1; 
+        if (code === 51) targetRowIndex = 2; 
 
         var targetColIndex = -1;
-        if (code === 52) targetColIndex = 1; // Key 4 (1G)
-        if (code === 53) targetColIndex = 2; // Key 5 (3.5G)
-        if (code === 54) targetColIndex = 3; // Key 6 (7G)
-        if (code === 55) targetColIndex = 4; // Key 7 (14G)
-        if (code === 56) targetColIndex = 5; // Key 8 (28G)
+        if (code === 52) targetColIndex = 1; 
+        if (code === 53) targetColIndex = 2; 
+        if (code === 54) targetColIndex = 3; 
+        if (code === 55) targetColIndex = 4; 
+        if (code === 56) targetColIndex = 5; 
 
-        // Execute Isolation Protocol
         if (targetRowIndex > -1) {
             var targetRow = rows[targetRowIndex];
             var wasActiveRow = targetRow.className.indexOf('active-tier') > -1;
@@ -404,7 +352,6 @@
                 table.className += ' ' + focusClass;
             }
         } else if (code !== 13) {
-            // Any unused key drops all active focus
             clearFocus();
         }
     });
@@ -476,7 +423,6 @@
         </tbody>
     </table>
     
-    <!-- Redesigned Deals Section extracted to block layout -->
     <div class="deals-section">
         <div class="deal-card">
             <span class="deals-item">$21 Pinner Packs<br>(10 x 0.3g)</span>
@@ -496,18 +442,8 @@
         </div>
     </div>
     
-    <!-- LIVE TICKER SECTION (Gapless Engine) -->
     <div class="ticker-wrap">
-        <div class="ticker-move">
-            <!-- Block 1 -->
-            <div class="ticker-item">
-                WELCOME TO REALEAF <span class="sep">●</span> SASKATCHEWAN'S FINEST CRAFT CANNABIS <span class="sep">●</span> NEW INVENTORY DROPS EVERY 2 WEEKS ON THURSDAYS <span class="sep">●</span> OPEN 10 TO 10 EVERYDAY <span class="sep">●</span>
-            </div>
-            <!-- Block 2 (Exact Duplicate for Seamless Loop) -->
-            <div class="ticker-item">
-                WELCOME TO REALEAF <span class="sep">●</span> SASKATCHEWAN'S FINEST CRAFT CANNABIS <span class="sep">●</span> NEW INVENTORY DROPS EVERY 2 WEEKS ON THURSDAYS <span class="sep">●</span> OPEN 10 TO 10 EVERYDAY <span class="sep">●</span>
-            </div>
-        </div>
+        <div id="sys-ticker" class="ticker-text">WELCOME TO REALEAF <span class="sep">●</span> SASKATCHEWAN'S FINEST CRAFT CANNABIS</div>
     </div>
 </div>
 
