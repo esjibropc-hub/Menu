@@ -21,6 +21,7 @@
         font-family: sans-serif; 
         overflow: hidden; 
         outline: none; 
+        -webkit-font-smoothing: antialiased;
     }
     
     body {
@@ -37,7 +38,7 @@
         background-color: #161b22; 
     }
     
-    /* Header scales to screen height */
+    /* Header - 12vh */
     .header { 
         display: flex; 
         justify-content: space-between; 
@@ -48,15 +49,16 @@
         position: relative; 
     }
     .header h1 { color: #3fb950; font-size: 5.5vh; letter-spacing: 2px; text-transform: uppercase; }
-    .header p { margin-top: 0.5vh; font-size: 2.5vh; color: #8b949e; }
+    .header p { margin-top: 0.5vh; font-size: 2.5vh; color: #8b949e; font-weight: bold; letter-spacing: 1px; }
     .header-right { text-align: right; }
-    .sourced { border: 2px solid #3fb950; color: #3fb950; padding: 1vh 1.5vw; border-radius: 6px; font-weight: bold; font-size: 2.2vh; display: inline-block;}
+    .sourced { border: 2px solid #3fb950; color: #3fb950; padding: 1vh 1.5vw; border-radius: 6px; font-weight: bold; font-size: 2.2vh; display: inline-block; letter-spacing: 0.5px; }
 
     /* REALEAF Static Logo Center */
     .header-center {
         position: absolute;
         left: 50%;
         top: 50%;
+        -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
         text-align: center;
         white-space: nowrap;
@@ -78,7 +80,7 @@
         text-transform: uppercase;
     }
 
-    /* Table Layout - Mathematically locked to available vertical space */
+    /* Table Layout - Mathematically locked to 64.5vh */
     table { 
         width: 100vw; 
         height: 64.5vh; 
@@ -86,6 +88,7 @@
         border-spacing: 0;
         text-align: center; 
         table-layout: fixed; 
+        font-variant-numeric: tabular-nums;
     }
     th:nth-child(1) { width: 34%; } 
     th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6) { width: 13.2%; }
@@ -107,15 +110,15 @@
     .row-blue .tier-cell { border-left: 1.5vw solid #58a6ff; }
     .row-red .tier-cell { border-left: 1.5vw solid #f85149; }
 
-    /* Upscaled Typography */
-    .tier-name { font-size: 5vh; font-weight: 900; display: flex; align-items: center; gap: 0.8vw; white-space: nowrap; }
-    .dot { font-size: 4.5vh; }
-    .thc-label { font-size: 5vh; font-weight: 900; margin-left: 0.5vw; white-space: nowrap; }
-    .tier-desc { font-size: 2.8vh; color: #c9d1d9; margin-top: 0.5vh; margin-left: 2.5vw; font-weight: bold; }
+    /* Pixel-Locked Left Column Typography */
+    .tier-name { font-size: 5vh; font-weight: 900; display: flex; align-items: center; white-space: nowrap; }
+    .dot { font-size: 4.2vh; width: 2.8vw; display: inline-block; flex-shrink: 0; }
+    .thc-label { font-size: 5vh; font-weight: 900; margin-left: 1vw; white-space: nowrap; }
+    .tier-desc { font-size: 2.6vh; color: #c9d1d9; margin-top: 0.4vh; padding-left: 2.8vw; font-weight: bold; letter-spacing: 0.5px; }
     
     /* Hyper-Legible Prices & Hardware Locked Contrast */
-    .price { font-size: 7.5vh; font-weight: 900; display: block; letter-spacing: 1px; }
-    .reg-price { font-size: 2.4vh; margin-top: 0.2vh; display: block; font-weight: bold; color: rgba(255, 255, 255, 0.95); white-space: nowrap; } 
+    .price { font-size: 7.5vh; font-weight: 900; display: block; letter-spacing: 1px; line-height: 1.05; }
+    .reg-price { font-size: 2.15vh; margin-top: 0.4vh; display: block; font-weight: bold; color: rgba(255, 255, 255, 0.92); white-space: nowrap; } 
 
     /* Color Coding Prices */
     .row-white .price { color: white; }
@@ -127,27 +130,24 @@
     .blue-dot { color: #58a6ff; }
     .red-dot { color: #f85149; }
 
-    /* --- REMOTE CONTROL ROW FOCUS UI (INSTANT SNAP) --- */
+    /* --- REMOTE CONTROL ROW FOCUS UI (ZERO-FILTER GPU COMPOSITING) --- */
     tbody.focus-mode tr { 
-        opacity: 0.15; 
-        filter: grayscale(80%); 
+        opacity: 0.12; 
     }
     tbody.focus-mode tr.active-tier { 
         opacity: 1; 
-        filter: grayscale(0%);
     }
-    tbody.focus-mode tr.row-white.active-tier { background: linear-gradient(90deg, rgba(255,255,255,0.15) 0%, transparent 80%); }
-    tbody.focus-mode tr.row-blue.active-tier { background: linear-gradient(90deg, rgba(88,166,255,0.2) 0%, transparent 80%); }
-    tbody.focus-mode tr.row-red.active-tier { background: linear-gradient(90deg, rgba(248,81,73,0.2) 0%, transparent 80%); }
+    tbody.focus-mode tr.row-white.active-tier { background: linear-gradient(90deg, rgba(255,255,255,0.16) 0%, transparent 80%); }
+    tbody.focus-mode tr.row-blue.active-tier { background: linear-gradient(90deg, rgba(88,166,255,0.22) 0%, transparent 80%); }
+    tbody.focus-mode tr.row-red.active-tier { background: linear-gradient(90deg, rgba(248,81,73,0.22) 0%, transparent 80%); }
 
-    /* --- REMOTE CONTROL COLUMN FOCUS UI (INSTANT SNAP - ZERO LAG) --- */
-    table.col-focus-1 th:not(:nth-child(2)), table.col-focus-1 td:not(:nth-child(2)),
-    table.col-focus-2 th:not(:nth-child(3)), table.col-focus-2 td:not(:nth-child(3)),
-    table.col-focus-3 th:not(:nth-child(4)), table.col-focus-3 td:not(:nth-child(4)),
-    table.col-focus-4 th:not(:nth-child(5)), table.col-focus-4 td:not(:nth-child(5)),
-    table.col-focus-5 th:not(:nth-child(6)), table.col-focus-5 td:not(:nth-child(6)) {
-        opacity: 0.15; 
-        filter: grayscale(80%); 
+    /* --- REMOTE CONTROL COLUMN FOCUS UI (KEEPS TIER NAMES VISIBLE, ZERO-FILTER LAG) --- */
+    table.col-focus-1 th:nth-child(n+2):not(:nth-child(2)), table.col-focus-1 td:nth-child(n+2):not(:nth-child(2)),
+    table.col-focus-2 th:nth-child(n+2):not(:nth-child(3)), table.col-focus-2 td:nth-child(n+2):not(:nth-child(3)),
+    table.col-focus-3 th:nth-child(n+2):not(:nth-child(4)), table.col-focus-3 td:nth-child(n+2):not(:nth-child(4)),
+    table.col-focus-4 th:nth-child(n+2):not(:nth-child(5)), table.col-focus-4 td:nth-child(n+2):not(:nth-child(5)),
+    table.col-focus-5 th:nth-child(n+2):not(:nth-child(6)), table.col-focus-5 td:nth-child(n+2):not(:nth-child(6)) {
+        opacity: 0.12; 
     }
 
     table.col-focus-1 th:nth-child(2),
@@ -159,7 +159,6 @@
         border-bottom: 4px solid #4eff5a;
         text-shadow: 0 0 1vh rgba(63, 185, 80, 0.8);
         opacity: 1; 
-        filter: grayscale(0%);
     }
 
     table.col-focus-1 td:nth-child(2),
@@ -167,13 +166,12 @@
     table.col-focus-3 td:nth-child(4),
     table.col-focus-4 td:nth-child(5),
     table.col-focus-5 td:nth-child(6) {
-        background: linear-gradient(180deg, rgba(63, 185, 80, 0.12) 0%, transparent 90%);
-        box-shadow: inset 2px 0 0 rgba(63, 185, 80, 0.4), inset -2px 0 0 rgba(63, 185, 80, 0.4);
+        background: linear-gradient(180deg, rgba(63, 185, 80, 0.15) 0%, rgba(63, 185, 80, 0.04) 100%);
+        box-shadow: inset 2px 0 0 rgba(78, 255, 90, 0.5), inset -2px 0 0 rgba(78, 255, 90, 0.5);
         opacity: 1; 
-        filter: grayscale(0%);
     }
 
-    /* Redesigned Deals Section - Extracted from Table for Flawless Edge Bleed */
+    /* Deals Section - 18vh */
     .deals-section { 
         width: 100vw;
         height: 18vh;
@@ -182,27 +180,27 @@
         justify-content: space-evenly; 
         align-items: center; 
         padding: 0 1vw; 
+        font-variant-numeric: tabular-nums;
     }
     
-    /* 3D Deal Cards - Static Architecture */
     .deal-card { 
-        background: rgba(0, 0, 0, 0.35); 
-        padding: 2.2vh 1vw; 
+        background: rgba(0, 0, 0, 0.38); 
+        padding: 2vh 1vw; 
         border-radius: 12px; 
         width: 23.5%; 
-        height: 85%; 
+        height: 84%; 
         display: flex;
         flex-direction: column;
         justify-content: center;
-        border: 1px solid rgba(255,255,255,0.25); 
-        box-shadow: 0 8px 16px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.1); 
+        border: 1px solid rgba(255,255,255,0.28); 
+        box-shadow: 0 6px 14px rgba(0,0,0,0.35), inset 0 1px 2px rgba(255,255,255,0.12); 
         text-align: center; 
     } 
     
-    .deals-item { font-size: 3vh; font-weight: 900; color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.9); display: block; line-height: 1.25; letter-spacing: 0.5px; } 
+    .deals-item { font-size: 3vh; font-weight: 900; color: white; text-shadow: 2px 2px 6px rgba(0,0,0,0.85); display: block; line-height: 1.25; letter-spacing: 0.5px; } 
     .deals-reg { color: #ffffff; font-size: 2vh; font-weight: bold; margin-top: 0.8vh; display: block; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); }
 
-    /* Gapless Live Ticker System (Restored Flexbox Max-Content Architecture) */
+    /* Gapless Live Ticker System - 5.5vh */
     .ticker-wrap {
         width: 100vw;
         height: 5.5vh;
@@ -216,9 +214,10 @@
     .ticker-move {
         display: flex;
         width: max-content;
-        /* GPU Forcing */
         -webkit-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
         will-change: transform;
         animation: tickerAnim 25s linear infinite;
     }
@@ -241,21 +240,22 @@
     }
     
     @keyframes tickerAnim {
-        0% { transform: translate3d(0, 0, 0); }
-        100% { transform: translate3d(-50%, 0, 0); }
+        0% { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+        100% { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
     }
 
-    /* Copyright Stamp */
+    /* Copyright Stamp - Tucked above ticker so it never overlaps scrolling text */
     .copyright-stamp {
         position: absolute;
-        bottom: 0.8vh;
-        right: 1vw;
-        font-size: 1.5vh;
-        color: rgba(255, 255, 255, 0.25);
+        bottom: 6vh;
+        right: 1.2vw;
+        font-size: 1.3vh;
+        color: rgba(0, 0, 0, 0.45);
         z-index: 100;
-        font-weight: bold;
-        letter-spacing: 0.1vw;
+        font-weight: 900;
+        letter-spacing: 0.08vw;
         text-transform: uppercase;
+        pointer-events: none;
     }
 
     /* --- STEALTH MODE PHYSICS --- */
@@ -279,62 +279,77 @@
 
     .stealth-active .header-center {
         top: 50vh;
+        -webkit-transform: translate(-50%, -50%) scale(2.5);
         transform: translate(-50%, -50%) scale(2.5);
     }
 </style>
 <script>
-    // Force Hardware Focus Lock on Boot
+    var bodyEl, tbodyEl, tableEl, rowEls;
+
     window.onload = function() {
-        document.body.focus();
+        bodyEl = document.body;
+        tbodyEl = document.querySelector('tbody');
+        tableEl = document.querySelector('table');
+        rowEls = [
+            document.querySelector('.row-white'),
+            document.querySelector('.row-blue'),
+            document.querySelector('.row-red')
+        ];
+
+        // Auto-verify and format 11% tax on all table prices
+        var priceCells = document.querySelectorAll('tbody td:not(.tier-cell)');
+        for (var p = 0; p < priceCells.length; p++) {
+            var pNode = priceCells[p].querySelector('.price');
+            var rNode = priceCells[p].querySelector('.reg-price');
+            if (pNode && rNode) {
+                var val = parseFloat(pNode.innerHTML.replace(/[^0-9.]/g, ''));
+                if (!isNaN(val)) {
+                    rNode.innerHTML = '$' + (val * 1.11).toFixed(2) + ' (+Tax 11%)';
+                }
+            }
+        }
+
+        bodyEl.focus();
     };
 
-    // Raw ES5 Hardware KeyCode Intercept
+    // Cached ES5 Hardware KeyCode Intercept
     window.addEventListener('keydown', function(e) {
         var code = e.keyCode || e.which;
-        var body = document.body;
+        if (!bodyEl) return;
         
         // Key '9' (keyCode 57) triggers Stealth Mode
         if (code === 57) {
-            if (body.className.indexOf('stealth-active') > -1) {
-                body.className = body.className.replace('stealth-active', '').trim();
+            e.preventDefault();
+            if (bodyEl.className.indexOf('stealth-active') > -1) {
+                bodyEl.className = bodyEl.className.replace(/stealth-active/g, '').trim();
             } else {
-                body.className += ' stealth-active';
+                bodyEl.className = (bodyEl.className + ' stealth-active').trim();
             }
             return;
         }
 
         // Key '0' (keyCode 48) triggers instant manual cache bypass
         if (code === 48) {
+            e.preventDefault();
             var cleanUrl = window.location.href.split('?')[0];
             window.location.replace(cleanUrl + '?v=' + new Date().getTime());
             return;
         }
 
-        var tbody = document.querySelector('tbody');
-        var table = document.querySelector('table');
-        var rows = [
-            document.querySelector('.row-white'),
-            document.querySelector('.row-blue'),
-            document.querySelector('.row-red')
-        ];
-        
-        var isStealth = body.className.indexOf('stealth-active') > -1;
-        if (isStealth) return;
+        if (bodyEl.className.indexOf('stealth-active') > -1) return;
 
-        // Wipe all highlights via fast string manipulation
         function clearFocus() {
-            tbody.className = tbody.className.replace('focus-mode', '').trim();
-            table.className = table.className.replace(/col-focus-[1-5]/g, '').trim();
-            for (var i = 0; i < rows.length; i++) {
-                rows[i].className = rows[i].className.replace('active-tier', '').trim();
+            tbodyEl.className = tbodyEl.className.replace(/focus-mode/g, '').trim();
+            tableEl.className = tableEl.className.replace(/col-focus-[1-5]/g, '').trim();
+            for (var i = 0; i < rowEls.length; i++) {
+                rowEls[i].className = rowEls[i].className.replace(/active-tier/g, '').trim();
             }
         }
 
-        // Map Input Codes
         var targetRowIndex = -1;
-        if (code === 49) targetRowIndex = 0; // Key 1
-        if (code === 50) targetRowIndex = 1; // Key 2
-        if (code === 51) targetRowIndex = 2; // Key 3
+        if (code === 49) targetRowIndex = 0; // Key 1 (White)
+        if (code === 50) targetRowIndex = 1; // Key 2 (Blue)
+        if (code === 51) targetRowIndex = 2; // Key 3 (Red)
 
         var targetColIndex = -1;
         if (code === 52) targetColIndex = 1; // Key 4 (1G)
@@ -343,24 +358,24 @@
         if (code === 55) targetColIndex = 4; // Key 7 (14G)
         if (code === 56) targetColIndex = 5; // Key 8 (28G)
 
-        // Execute Isolation Protocol
         if (targetRowIndex > -1) {
-            var targetRow = rows[targetRowIndex];
+            e.preventDefault();
+            var targetRow = rowEls[targetRowIndex];
             var wasActiveRow = targetRow.className.indexOf('active-tier') > -1;
             clearFocus();
             if (!wasActiveRow) {
-                tbody.className += ' focus-mode';
-                targetRow.className += ' active-tier';
+                tbodyEl.className = (tbodyEl.className + ' focus-mode').trim();
+                targetRow.className = (targetRow.className + ' active-tier').trim();
             }
         } else if (targetColIndex > -1) {
+            e.preventDefault();
             var focusClass = 'col-focus-' + targetColIndex;
-            var wasActiveCol = table.className.indexOf(focusClass) > -1;
+            var wasActiveCol = tableEl.className.indexOf(focusClass) > -1;
             clearFocus();
             if (!wasActiveCol) {
-                table.className += ' ' + focusClass;
+                tableEl.className = (tableEl.className + ' ' + focusClass).trim();
             }
         } else if (code !== 13) {
-            // Any unused key drops all active focus
             clearFocus();
         }
     });
@@ -398,7 +413,7 @@
         <tbody>
             <tr class="row-white">
                 <td class="tier-cell">
-                    <div class="tier-name white-dot"><span class="dot">●</span> WHITE DOT <span class="thc-label">30-35%</span></div>
+                    <div class="tier-name white-dot"><span class="dot">●</span><span>WHITE DOT</span><span class="thc-label">30-35%</span></div>
                     <div class="tier-desc">PREMIUM AAAA+</div>
                 </td>
                 <td><span class="price">$10</span><span class="reg-price">$11.10 (+Tax 11%)</span></td>
@@ -409,7 +424,7 @@
             </tr>
             <tr class="row-blue">
                 <td class="tier-cell">
-                    <div class="tier-name blue-dot"><span class="dot">●</span> BLUE DOT <span class="thc-label">27-29%</span></div>
+                    <div class="tier-name blue-dot"><span class="dot">●</span><span>BLUE DOT</span><span class="thc-label">27-29%</span></div>
                     <div class="tier-desc">TOP SHELF AAAA</div>
                 </td>
                 <td><span class="price">$9</span><span class="reg-price">$9.99 (+Tax 11%)</span></td>
@@ -420,7 +435,7 @@
             </tr>
             <tr class="row-red">
                 <td class="tier-cell">
-                    <div class="tier-name red-dot"><span class="dot">●</span> RED DOT <span class="thc-label">21-26%</span></div>
+                    <div class="tier-name red-dot"><span class="dot">●</span><span>RED DOT</span><span class="thc-label">21-26%</span></div>
                     <div class="tier-desc">BUDGET AA</div>
                 </td>
                 <td><span class="price">$5</span><span class="reg-price">$5.55 (+Tax 11%)</span></td>
