@@ -43,15 +43,32 @@
         display: flex; 
         justify-content: space-between; 
         align-items: center; 
-        padding: 2vh 3vw; 
+        padding: 0 3vw; 
         border-bottom: 4px solid #30363d; 
         height: 12vh;
+        flex-shrink: 0;
         position: relative; 
     }
-    .header h1 { color: #3fb950; font-size: 5.5vh; letter-spacing: 2px; text-transform: uppercase; }
-    .header p { margin-top: 0.5vh; font-size: 2.5vh; color: #8b949e; font-weight: bold; letter-spacing: 1px; }
-    .header-right { text-align: right; }
+    .header h1 { color: #3fb950; font-size: 5.5vh; letter-spacing: 2px; text-transform: uppercase; line-height: 1; }
+    .header p { margin-top: 0.6vh; font-size: 2.3vh; color: #8b949e; font-weight: bold; letter-spacing: 1.5px; }
+    .header-right { text-align: right; display: flex; align-items: center; justify-content: flex-end; }
     .sourced { border: 2px solid #3fb950; color: #3fb950; padding: 1vh 1.5vw; border-radius: 6px; font-weight: bold; font-size: 2.2vh; display: inline-block; letter-spacing: 0.5px; }
+
+    /* Dynamic Bulk Upsell HUD Pill */
+    .upsell-hud {
+        display: none;
+        background-color: #4eff5a;
+        color: #0d1117;
+        padding: 1vh 1.5vw;
+        border-radius: 6px;
+        font-weight: 900;
+        font-size: 2.4vh;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        box-shadow: 0 0 2vh rgba(78, 255, 90, 0.5);
+    }
+    body.upsell-active .upsell-hud { display: inline-block; }
+    body.upsell-active .sourced { display: none !important; }
 
     /* REALEAF Static Logo Center */
     .header-center {
@@ -80,10 +97,11 @@
         text-transform: uppercase;
     }
 
-    /* Table Layout - Mathematically locked to 64.5vh */
+    /* Table Layout - Explicit viewport heights prevent row collapse/expansion bugs */
     table { 
         width: 100vw; 
         height: 64.5vh; 
+        flex-shrink: 0;
         border-collapse: collapse; 
         border-spacing: 0;
         text-align: center; 
@@ -93,12 +111,14 @@
     th:nth-child(1) { width: 34%; } 
     th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6) { width: 13.2%; }
 
-    /* Enlarged Headers */
-    th { font-size: 4.5vh; border-bottom: 4px solid #30363d; color: #c9d1d9; text-transform: uppercase; padding: 1.5vh 0; } 
-    td { border-bottom: 2px solid #30363d; vertical-align: middle; }
+    /* Dual-Tier Column Headers - Locked to 7.2vh */
+    thead tr { height: 7.2vh; }
+    th { font-size: 4vh; border-bottom: 4px solid #30363d; color: #ffffff; text-transform: uppercase; vertical-align: middle; line-height: 1.05; } 
+    .wt-sub { display: block; font-size: 1.5vh; color: #8b949e; letter-spacing: 2px; margin-top: 0.25vh; font-weight: 800; }
     
-    /* Force exactly 3 equal height rows */
-    tbody tr { height: 33.33%; }
+    /* Force 3 exact, unbreakable 19.1vh rows (7.2vh + 3*19.1vh = 64.5vh) */
+    tbody tr { height: 19.1vh; }
+    td { border-bottom: 2px solid #30363d; vertical-align: middle; position: relative; }
     
     /* Category Differentiation with Optical Row Anchoring */
     .row-white { background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, transparent 60%); }
@@ -116,9 +136,10 @@
     .thc-label { font-size: 5vh; font-weight: 900; margin-left: 1vw; white-space: nowrap; }
     .tier-desc { font-size: 2.6vh; color: #c9d1d9; margin-top: 0.4vh; padding-left: 2.8vw; font-weight: bold; letter-spacing: 0.5px; }
     
-    /* Hyper-Legible Prices & Hardware Locked Contrast */
-    .price { font-size: 7.5vh; font-weight: 900; display: block; letter-spacing: 1px; line-height: 1.05; }
-    .reg-price { font-size: 2.15vh; margin-top: 0.4vh; display: block; font-weight: bold; color: rgba(255, 255, 255, 0.92); white-space: nowrap; } 
+    /* Neuromarketing Superscript Currency & Hyper-Legible Prices */
+    .price { font-size: 7.5vh; font-weight: 900; display: block; letter-spacing: 0.5px; line-height: 1.05; }
+    .curr { font-size: 4.2vh; vertical-align: top; position: relative; top: 0.6vh; margin-right: 0.15vw; font-weight: 800; opacity: 0.9; }
+    .reg-price { font-size: 2.15vh; margin-top: 0.4vh; display: block; font-weight: bold; color: rgba(255, 255, 255, 0.9); white-space: nowrap; } 
 
     /* Color Coding Prices */
     .row-white .price { color: white; }
@@ -131,17 +152,13 @@
     .red-dot { color: #f85149; }
 
     /* --- REMOTE CONTROL ROW FOCUS UI (ZERO-FILTER GPU COMPOSITING) --- */
-    tbody.focus-mode tr { 
-        opacity: 0.12; 
-    }
-    tbody.focus-mode tr.active-tier { 
-        opacity: 1; 
-    }
+    tbody.focus-mode tr { opacity: 0.12; }
+    tbody.focus-mode tr.active-tier { opacity: 1; }
     tbody.focus-mode tr.row-white.active-tier { background: linear-gradient(90deg, rgba(255,255,255,0.16) 0%, transparent 80%); }
     tbody.focus-mode tr.row-blue.active-tier { background: linear-gradient(90deg, rgba(88,166,255,0.22) 0%, transparent 80%); }
     tbody.focus-mode tr.row-red.active-tier { background: linear-gradient(90deg, rgba(248,81,73,0.22) 0%, transparent 80%); }
 
-    /* --- REMOTE CONTROL COLUMN FOCUS UI (KEEPS TIER NAMES VISIBLE, ZERO-FILTER LAG) --- */
+    /* --- REMOTE CONTROL COLUMN & CROSSHAIR FOCUS UI --- */
     table.col-focus-1 th:nth-child(n+2):not(:nth-child(2)), table.col-focus-1 td:nth-child(n+2):not(:nth-child(2)),
     table.col-focus-2 th:nth-child(n+2):not(:nth-child(3)), table.col-focus-2 td:nth-child(n+2):not(:nth-child(3)),
     table.col-focus-3 th:nth-child(n+2):not(:nth-child(4)), table.col-focus-3 td:nth-child(n+2):not(:nth-child(4)),
@@ -160,6 +177,13 @@
         text-shadow: 0 0 1vh rgba(63, 185, 80, 0.8);
         opacity: 1; 
     }
+    table.col-focus-1 th:nth-child(2) .wt-sub,
+    table.col-focus-2 th:nth-child(3) .wt-sub,
+    table.col-focus-3 th:nth-child(4) .wt-sub,
+    table.col-focus-4 th:nth-child(5) .wt-sub,
+    table.col-focus-5 th:nth-child(6) .wt-sub {
+        color: #4eff5a;
+    }
 
     table.col-focus-1 td:nth-child(2),
     table.col-focus-2 td:nth-child(3),
@@ -171,10 +195,21 @@
         opacity: 1; 
     }
 
+    /* Crosshair Lock Box (Row + Column Intersection) */
+    table.col-focus-1 tbody.focus-mode tr.active-tier td:nth-child(2),
+    table.col-focus-2 tbody.focus-mode tr.active-tier td:nth-child(3),
+    table.col-focus-3 tbody.focus-mode tr.active-tier td:nth-child(4),
+    table.col-focus-4 tbody.focus-mode tr.active-tier td:nth-child(5),
+    table.col-focus-5 tbody.focus-mode tr.active-tier td:nth-child(6) {
+        background: rgba(63, 185, 80, 0.25);
+        box-shadow: inset 0 0 0 4px #4eff5a;
+    }
+
     /* Deals Section - 18vh */
     .deals-section { 
         width: 100vw;
         height: 18vh;
+        flex-shrink: 0;
         background: linear-gradient(90deg, #3fb950 0%, #2ea043 100%); 
         display: flex; 
         justify-content: space-evenly; 
@@ -204,6 +239,7 @@
     .ticker-wrap {
         width: 100vw;
         height: 5.5vh;
+        flex-shrink: 0;
         background-color: #0d1117;
         border-top: 2px solid rgba(63, 185, 80, 0.5);
         overflow: hidden;
@@ -244,7 +280,7 @@
         100% { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
     }
 
-    /* Copyright Stamp - Tucked above ticker so it never overlaps scrolling text */
+    /* Copyright Stamp - Tucked cleanly above ticker */
     .copyright-stamp {
         position: absolute;
         bottom: 6vh;
@@ -283,103 +319,6 @@
         transform: translate(-50%, -50%) scale(2.5);
     }
 </style>
-<script>
-    var bodyEl, tbodyEl, tableEl, rowEls;
-
-    window.onload = function() {
-        bodyEl = document.body;
-        tbodyEl = document.querySelector('tbody');
-        tableEl = document.querySelector('table');
-        rowEls = [
-            document.querySelector('.row-white'),
-            document.querySelector('.row-blue'),
-            document.querySelector('.row-red')
-        ];
-
-        // Auto-verify and format 11% tax on all table prices
-        var priceCells = document.querySelectorAll('tbody td:not(.tier-cell)');
-        for (var p = 0; p < priceCells.length; p++) {
-            var pNode = priceCells[p].querySelector('.price');
-            var rNode = priceCells[p].querySelector('.reg-price');
-            if (pNode && rNode) {
-                var val = parseFloat(pNode.innerHTML.replace(/[^0-9.]/g, ''));
-                if (!isNaN(val)) {
-                    rNode.innerHTML = '$' + (val * 1.11).toFixed(2) + ' (+Tax 11%)';
-                }
-            }
-        }
-
-        bodyEl.focus();
-    };
-
-    // Cached ES5 Hardware KeyCode Intercept
-    window.addEventListener('keydown', function(e) {
-        var code = e.keyCode || e.which;
-        if (!bodyEl) return;
-        
-        // Key '9' (keyCode 57) triggers Stealth Mode
-        if (code === 57) {
-            e.preventDefault();
-            if (bodyEl.className.indexOf('stealth-active') > -1) {
-                bodyEl.className = bodyEl.className.replace(/stealth-active/g, '').trim();
-            } else {
-                bodyEl.className = (bodyEl.className + ' stealth-active').trim();
-            }
-            return;
-        }
-
-        // Key '0' (keyCode 48) triggers instant manual cache bypass
-        if (code === 48) {
-            e.preventDefault();
-            var cleanUrl = window.location.href.split('?')[0];
-            window.location.replace(cleanUrl + '?v=' + new Date().getTime());
-            return;
-        }
-
-        if (bodyEl.className.indexOf('stealth-active') > -1) return;
-
-        function clearFocus() {
-            tbodyEl.className = tbodyEl.className.replace(/focus-mode/g, '').trim();
-            tableEl.className = tableEl.className.replace(/col-focus-[1-5]/g, '').trim();
-            for (var i = 0; i < rowEls.length; i++) {
-                rowEls[i].className = rowEls[i].className.replace(/active-tier/g, '').trim();
-            }
-        }
-
-        var targetRowIndex = -1;
-        if (code === 49) targetRowIndex = 0; // Key 1 (White)
-        if (code === 50) targetRowIndex = 1; // Key 2 (Blue)
-        if (code === 51) targetRowIndex = 2; // Key 3 (Red)
-
-        var targetColIndex = -1;
-        if (code === 52) targetColIndex = 1; // Key 4 (1G)
-        if (code === 53) targetColIndex = 2; // Key 5 (3.5G)
-        if (code === 54) targetColIndex = 3; // Key 6 (7G)
-        if (code === 55) targetColIndex = 4; // Key 7 (14G)
-        if (code === 56) targetColIndex = 5; // Key 8 (28G)
-
-        if (targetRowIndex > -1) {
-            e.preventDefault();
-            var targetRow = rowEls[targetRowIndex];
-            var wasActiveRow = targetRow.className.indexOf('active-tier') > -1;
-            clearFocus();
-            if (!wasActiveRow) {
-                tbodyEl.className = (tbodyEl.className + ' focus-mode').trim();
-                targetRow.className = (targetRow.className + ' active-tier').trim();
-            }
-        } else if (targetColIndex > -1) {
-            e.preventDefault();
-            var focusClass = 'col-focus-' + targetColIndex;
-            var wasActiveCol = tableEl.className.indexOf(focusClass) > -1;
-            clearFocus();
-            if (!wasActiveCol) {
-                tableEl.className = (tableEl.className + ' ' + focusClass).trim();
-            }
-        } else if (code !== 13) {
-            clearFocus();
-        }
-    });
-</script>
 </head>
 <body tabindex="0">
 
@@ -395,6 +334,7 @@
         </div>
 
         <div class="header-right">
+            <span id="upsell-hud" class="upsell-hud"></span>
             <div class="sourced">SOURCED FROM VICTORIA, BC</div>
         </div>
     </div>
@@ -402,12 +342,12 @@
     <table>
         <thead>
             <tr>
-                <th style="text-align: left; padding-left: 3vw;">TIER</th>
-                <th>1 G</th>
-                <th>3.5 G</th>
-                <th>7 G</th>
-                <th>14 G</th>
-                <th>28 G</th>
+                <th style="text-align: left; padding-left: 3vw;">TIER<span class="wt-sub"> POTENCY &amp; GRADE</span></th>
+                <th>1 G<span class="wt-sub">SINGLE</span></th>
+                <th>3.5 G<span class="wt-sub">EIGHTH</span></th>
+                <th>7 G<span class="wt-sub">QUARTER</span></th>
+                <th>14 G<span class="wt-sub">HALF OZ</span></th>
+                <th>28 G<span class="wt-sub">OUNCE</span></th>
             </tr>
         </thead>
         <tbody>
@@ -482,5 +422,177 @@
 
 <div class="copyright-stamp">&copy; 2026 Dakota Adam. All Rights Reserved.</div>
 
+<script>
+    var bodyEl, tbodyEl, tableEl, upsellHudEl, rowEls;
+    var activeRowIdx = -1;
+    var activeColIdx = -1;
+    var idleTimer = null;
+    var weights = [0, 1, 3.5, 7, 14, 28];
+    var tierLabels = ["WHITE DOT", "BLUE DOT", "RED DOT"];
+    var cellMatrix = [[], [], []];
+    var booted = false;
+
+    function initMenu() {
+        if (booted) return;
+        booted = true;
+
+        bodyEl = document.body;
+        tbodyEl = document.querySelector('tbody');
+        tableEl = document.querySelector('table');
+        upsellHudEl = document.getElementById('upsell-hud');
+        rowEls = [
+            document.querySelector('.row-white'),
+            document.querySelector('.row-blue'),
+            document.querySelector('.row-red')
+        ];
+
+        // Format Superscript Currency, Auto-Tax, and Cache Price Matrix
+        for (var r = 0; r < rowEls.length; r++) {
+            var tds = rowEls[r].querySelectorAll('td');
+            for (var c = 1; c < tds.length; c++) {
+                var pNode = tds[c].querySelector('.price');
+                var rNode = tds[c].querySelector('.reg-price');
+                if (pNode && rNode) {
+                    var rawVal = parseFloat(pNode.innerHTML.replace(/[^0-9.]/g, ''));
+                    if (!isNaN(rawVal)) {
+                        var numStr = pNode.innerHTML.replace(/[^0-9.]/g, '');
+                        pNode.innerHTML = '<span class="curr">$</span>' + numStr;
+                        rNode.innerHTML = '$' + (rawVal * 1.11).toFixed(2) + ' (+Tax 11%)';
+                        cellMatrix[r][c] = {
+                            price: rawVal,
+                            afterTax: (rawVal * 1.11).toFixed(2)
+                        };
+                    }
+                }
+            }
+        }
+
+        bodyEl.focus();
+        window.addEventListener('click', function() { bodyEl.focus(); });
+        setInterval(function() {
+            if (document.activeElement !== bodyEl) bodyEl.focus();
+        }, 4000);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMenu);
+    } else {
+        initMenu();
+    }
+    window.onload = initMenu;
+
+    function updateUpsellHud() {
+        if (activeRowIdx > -1 && activeColIdx > -1) {
+            var cell = cellMatrix[activeRowIdx][activeColIdx];
+            var singlePrice = cellMatrix[activeRowIdx][1].price;
+            var wt = weights[activeColIdx];
+            var perGram = (cell.price / wt).toFixed(2);
+            var saved = Math.round((singlePrice * wt) - cell.price);
+
+            if (wt > 1 && saved > 0) {
+                upsellHudEl.innerHTML = '$' + perGram + ' / G &nbsp;●&nbsp; SAVE $' + saved + ' IN BULK';
+            } else {
+                upsellHudEl.innerHTML = tierLabels[activeRowIdx] + ' 1G &nbsp;●&nbsp; $' + cell.afterTax + ' AFTER TAX';
+            }
+            if (bodyEl.className.indexOf('upsell-active') === -1) {
+                bodyEl.className = (bodyEl.className + ' upsell-active').trim();
+            }
+        } else {
+            bodyEl.className = bodyEl.className.replace(/upsell-active/g, '').trim();
+        }
+    }
+
+    function clearAllFocus() {
+        tbodyEl.className = tbodyEl.className.replace(/focus-mode/g, '').trim();
+        tableEl.className = tableEl.className.replace(/col-focus-[1-5]/g, '').trim();
+        bodyEl.className = bodyEl.className.replace(/upsell-active/g, '').trim();
+        for (var i = 0; i < rowEls.length; i++) {
+            rowEls[i].className = rowEls[i].className.replace(/active-tier/g, '').trim();
+        }
+        activeRowIdx = -1;
+        activeColIdx = -1;
+        if (idleTimer) {
+            clearTimeout(idleTimer);
+            idleTimer = null;
+        }
+    }
+
+    function resetIdleWatchdog() {
+        if (idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(function() {
+            clearAllFocus();
+        }, 45000);
+    }
+
+    window.addEventListener('keydown', function(e) {
+        var code = e.keyCode || e.which;
+        if (!bodyEl) initMenu();
+        
+        // Key '9' (57) or Numpad 9 (105) -> Stealth Mode
+        if (code === 57 || code === 105) {
+            e.preventDefault();
+            if (bodyEl.className.indexOf('stealth-active') > -1) {
+                bodyEl.className = bodyEl.className.replace(/stealth-active/g, '').trim();
+            } else {
+                bodyEl.className = (bodyEl.className + ' stealth-active').trim();
+            }
+            return;
+        }
+
+        // Key '0' (48) or Numpad 0 (96) -> Instant Manual Cache Bypass
+        if (code === 48 || code === 96) {
+            e.preventDefault();
+            var cleanUrl = window.location.href.split('?')[0];
+            window.location.replace(cleanUrl + '?v=' + new Date().getTime());
+            return;
+        }
+
+        if (bodyEl.className.indexOf('stealth-active') > -1) return;
+
+        var targetRowIndex = -1;
+        if (code === 49 || code === 97) targetRowIndex = 0; // Key 1 (White)
+        if (code === 50 || code === 98) targetRowIndex = 1; // Key 2 (Blue)
+        if (code === 51 || code === 99) targetRowIndex = 2; // Key 3 (Red)
+
+        var targetColIndex = -1;
+        if (code === 52 || code === 100) targetColIndex = 1; // Key 4 (1G)
+        if (code === 53 || code === 101) targetColIndex = 2; // Key 5 (3.5G)
+        if (code === 54 || code === 102) targetColIndex = 3; // Key 6 (7G)
+        if (code === 55 || code === 103) targetColIndex = 4; // Key 7 (14G)
+        if (code === 56 || code === 104) targetColIndex = 5; // Key 8 (28G)
+
+        if (targetRowIndex > -1) {
+            e.preventDefault();
+            for (var i = 0; i < rowEls.length; i++) {
+                rowEls[i].className = rowEls[i].className.replace(/active-tier/g, '').trim();
+            }
+            if (activeRowIdx === targetRowIndex) {
+                tbodyEl.className = tbodyEl.className.replace(/focus-mode/g, '').trim();
+                activeRowIdx = -1;
+            } else {
+                if (tbodyEl.className.indexOf('focus-mode') === -1) {
+                    tbodyEl.className = (tbodyEl.className + ' focus-mode').trim();
+                }
+                rowEls[targetRowIndex].className = (rowEls[targetRowIndex].className + ' active-tier').trim();
+                activeRowIdx = targetRowIndex;
+                resetIdleWatchdog();
+            }
+            updateUpsellHud();
+        } else if (targetColIndex > -1) {
+            e.preventDefault();
+            tableEl.className = tableEl.className.replace(/col-focus-[1-5]/g, '').trim();
+            if (activeColIdx === targetColIndex) {
+                activeColIdx = -1;
+            } else {
+                tableEl.className = (tableEl.className + ' col-focus-' + targetColIndex).trim();
+                activeColIdx = targetColIndex;
+                resetIdleWatchdog();
+            }
+            updateUpsellHud();
+        } else {
+            clearAllFocus();
+        }
+    });
+</script>
 </body>
 </html>
