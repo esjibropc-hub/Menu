@@ -108,38 +108,65 @@
         table-layout: fixed; 
         font-variant-numeric: tabular-nums;
     }
-    th:nth-child(1) { width: 34%; } 
-    th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6) { width: 13.2%; }
+    th:nth-child(1) { width: 35%; } 
+    th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6) { width: 13%; }
 
     /* Dual-Tier Column Headers - Locked to 7.2vh */
     thead tr { height: 7.2vh; }
     th { font-size: 4vh; border-bottom: 4px solid #30363d; color: #ffffff; text-transform: uppercase; vertical-align: middle; line-height: 1.05; } 
-    .wt-sub { display: block; font-size: 1.5vh; color: #8b949e; letter-spacing: 2px; margin-top: 0.25vh; font-weight: 800; }
+    .wt-sub { display: block; font-size: 1.65vh; color: #a5b0bc; letter-spacing: 2px; margin-top: 0.25vh; font-weight: 800; }
     
     /* Force 3 exact, unbreakable 19.1vh rows (7.2vh + 3*19.1vh = 64.5vh) */
     tbody tr { height: 19.1vh; }
     td { border-bottom: 2px solid #30363d; vertical-align: middle; position: relative; }
     
     /* Category Differentiation with Optical Row Anchoring */
-    .row-white { background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, transparent 60%); }
-    .row-blue { background: linear-gradient(90deg, rgba(88,166,255,0.08) 0%, transparent 60%); }
-    .row-red { background: linear-gradient(90deg, rgba(248,81,73,0.08) 0%, transparent 60%); }
+    .row-white { background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, transparent 65%); }
+    .row-blue { background: linear-gradient(90deg, rgba(88,166,255,0.08) 0%, transparent 65%); }
+    .row-red { background: linear-gradient(90deg, rgba(248,81,73,0.08) 0%, transparent 65%); }
 
-    .tier-cell { text-align: left; padding-left: 3vw; }
+    .tier-cell { text-align: left; padding: 0 1.8vw 0 2.5vw; border-right: 2px solid rgba(48, 54, 61, 0.7); }
     .row-white .tier-cell { border-left: 1.5vw solid white; }
     .row-blue .tier-cell { border-left: 1.5vw solid #58a6ff; }
     .row-red .tier-cell { border-left: 1.5vw solid #f85149; }
 
-    /* Pixel-Locked Left Column Typography */
-    .tier-name { font-size: 5vh; font-weight: 900; display: flex; align-items: center; white-space: nowrap; }
-    .dot { font-size: 4.2vh; width: 2.8vw; display: inline-block; flex-shrink: 0; }
-    .thc-label { font-size: 5vh; font-weight: 900; margin-left: 1vw; white-space: nowrap; }
-    .tier-desc { font-size: 2.6vh; color: #c9d1d9; margin-top: 0.4vh; padding-left: 2.8vw; font-weight: bold; letter-spacing: 0.5px; }
+    /* Axis-Locked Left Column Typography */
+    .tier-name { font-size: 4.8vh; font-weight: 900; display: flex; align-items: center; justify-content: space-between; white-space: nowrap; }
+    .tier-left { display: flex; align-items: center; }
+    .dot { font-size: 4vh; width: 2.6vw; display: inline-block; flex-shrink: 0; }
+    .thc-label { 
+        font-size: 3.8vh; 
+        font-weight: 900; 
+        padding: 0.3vh 0.8vw; 
+        border-radius: 6px; 
+        background: rgba(0, 0, 0, 0.35); 
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        letter-spacing: 0.5px;
+    }
+    .row-blue .thc-label { border-color: rgba(88, 166, 255, 0.35); }
+    .row-red .thc-label { border-color: rgba(248, 81, 73, 0.35); }
+    .tier-desc { font-size: 2.5vh; color: #c9d1d9; margin-top: 0.5vh; padding-left: 2.6vw; font-weight: bold; letter-spacing: 0.8px; }
     
-    /* Neuromarketing Superscript Currency & Hyper-Legible Prices */
-    .price { font-size: 7.5vh; font-weight: 900; display: block; letter-spacing: 0.5px; line-height: 1.05; }
+    /* Neuromarketing Superscript Currency, Cents & Anti-Glare Shadow */
+    .price { 
+        font-size: 7.5vh; 
+        font-weight: 900; 
+        display: block; 
+        letter-spacing: 0.5px; 
+        line-height: 1.05; 
+        text-shadow: 0 3px 8px rgba(0, 0, 0, 0.85);
+    }
     .curr { font-size: 4.2vh; vertical-align: top; position: relative; top: 0.6vh; margin-right: 0.15vw; font-weight: 800; opacity: 0.9; }
-    .reg-price { font-size: 2.15vh; margin-top: 0.4vh; display: block; font-weight: bold; color: rgba(255, 255, 255, 0.9); white-space: nowrap; } 
+    .cents { font-size: 3.8vh; vertical-align: top; position: relative; top: 0.6vh; margin-left: 0.1vw; font-weight: 800; opacity: 0.95; }
+    .reg-price { 
+        font-size: 2.15vh; 
+        margin-top: 0.4vh; 
+        display: block; 
+        font-weight: bold; 
+        color: rgba(255, 255, 255, 0.92); 
+        white-space: nowrap; 
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+    } 
 
     /* Color Coding Prices */
     .row-white .price { color: white; }
@@ -210,7 +237,7 @@
         width: 100vw;
         height: 18vh;
         flex-shrink: 0;
-        background: linear-gradient(90deg, #3fb950 0%, #2ea043 100%); 
+        background: linear-gradient(90deg, #2ea043 0%, #238636 100%); 
         display: flex; 
         justify-content: space-evenly; 
         align-items: center; 
@@ -219,8 +246,8 @@
     }
     
     .deal-card { 
-        background: rgba(0, 0, 0, 0.38); 
-        padding: 2vh 1vw; 
+        background: rgba(13, 17, 23, 0.58); 
+        padding: 1.5vh 1vw; 
         border-radius: 12px; 
         width: 23.5%; 
         height: 84%; 
@@ -228,12 +255,14 @@
         flex-direction: column;
         justify-content: center;
         border: 1px solid rgba(255,255,255,0.28); 
-        box-shadow: 0 6px 14px rgba(0,0,0,0.35), inset 0 1px 2px rgba(255,255,255,0.12); 
+        box-shadow: 0 6px 14px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.15); 
         text-align: center; 
     } 
     
-    .deals-item { font-size: 3vh; font-weight: 900; color: white; text-shadow: 2px 2px 6px rgba(0,0,0,0.85); display: block; line-height: 1.25; letter-spacing: 0.5px; } 
-    .deals-reg { color: #ffffff; font-size: 2vh; font-weight: bold; margin-top: 0.8vh; display: block; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); }
+    .deals-item { font-size: 3.1vh; font-weight: 900; color: white; text-shadow: 0 2px 6px rgba(0,0,0,0.9); display: block; line-height: 1.15; letter-spacing: 0.5px; } 
+    .deal-price-hl { color: #4eff5a; }
+    .deals-sub { font-size: 2.3vh; font-weight: 800; color: #d2f8d8; display: block; margin-top: 0.3vh; text-shadow: 0 2px 4px rgba(0,0,0,0.85); }
+    .deals-reg { color: rgba(255,255,255,0.9); font-size: 1.95vh; font-weight: bold; margin-top: 0.6vh; display: block; text-shadow: 0 1px 4px rgba(0,0,0,0.9); }
 
     /* Gapless Live Ticker System - 5.5vh */
     .ticker-wrap {
@@ -283,12 +312,12 @@
     /* Copyright Stamp - Tucked cleanly above ticker */
     .copyright-stamp {
         position: absolute;
-        bottom: 6vh;
-        right: 1.2vw;
-        font-size: 1.3vh;
-        color: rgba(0, 0, 0, 0.45);
+        bottom: 5.8vh;
+        right: 1.4vw;
+        font-size: 1.2vh;
+        color: rgba(255, 255, 255, 0.35);
         z-index: 100;
-        font-weight: 900;
+        font-weight: 800;
         letter-spacing: 0.08vw;
         text-transform: uppercase;
         pointer-events: none;
@@ -342,7 +371,7 @@
     <table>
         <thead>
             <tr>
-                <th style="text-align: left; padding-left: 3vw;">TIER<span class="wt-sub"> POTENCY &amp; GRADE</span></th>
+                <th style="text-align: left; padding-left: 2.5vw;">TIER<span class="wt-sub" style="padding-left: 2.6vw;">GRADE &amp; POTENCY</span></th>
                 <th>1 G<span class="wt-sub">SINGLE</span></th>
                 <th>3.5 G<span class="wt-sub">EIGHTH</span></th>
                 <th>7 G<span class="wt-sub">QUARTER</span></th>
@@ -353,7 +382,10 @@
         <tbody>
             <tr class="row-white">
                 <td class="tier-cell">
-                    <div class="tier-name white-dot"><span class="dot">●</span><span>WHITE DOT</span><span class="thc-label">30-35%</span></div>
+                    <div class="tier-name white-dot">
+                        <span class="tier-left"><span class="dot">●</span><span>WHITE DOT</span></span>
+                        <span class="thc-label">30-35%</span>
+                    </div>
                     <div class="tier-desc">PREMIUM AAAA+</div>
                 </td>
                 <td><span class="price">$10</span><span class="reg-price">$11.10 (+Tax 11%)</span></td>
@@ -364,7 +396,10 @@
             </tr>
             <tr class="row-blue">
                 <td class="tier-cell">
-                    <div class="tier-name blue-dot"><span class="dot">●</span><span>BLUE DOT</span><span class="thc-label">27-29%</span></div>
+                    <div class="tier-name blue-dot">
+                        <span class="tier-left"><span class="dot">●</span><span>BLUE DOT</span></span>
+                        <span class="thc-label">27-29%</span>
+                    </div>
                     <div class="tier-desc">TOP SHELF AAAA</div>
                 </td>
                 <td><span class="price">$9</span><span class="reg-price">$9.99 (+Tax 11%)</span></td>
@@ -375,7 +410,10 @@
             </tr>
             <tr class="row-red">
                 <td class="tier-cell">
-                    <div class="tier-name red-dot"><span class="dot">●</span><span>RED DOT</span><span class="thc-label">21-26%</span></div>
+                    <div class="tier-name red-dot">
+                        <span class="tier-left"><span class="dot">●</span><span>RED DOT</span></span>
+                        <span class="thc-label">21-26%</span>
+                    </div>
                     <div class="tier-desc">BUDGET AA</div>
                 </td>
                 <td><span class="price">$5</span><span class="reg-price">$5.55 (+Tax 11%)</span></td>
@@ -389,19 +427,23 @@
     
     <div class="deals-section">
         <div class="deal-card">
-            <span class="deals-item">$21 Pinner Packs<br>(10 x 0.3g)</span>
+            <span class="deals-item"><span class="deal-price-hl">$21</span> Pinner Packs</span>
+            <span class="deals-sub">(10 x 0.3g)</span>
             <span class="deals-reg">$23.31 (+Tax 11%)</span>
         </div>
         <div class="deal-card">
-            <span class="deals-item">$5 Pre-Rolls<br>(5 for $20)</span>
+            <span class="deals-item"><span class="deal-price-hl">$5</span> Pre-Rolls</span>
+            <span class="deals-sub">(5 for $20)</span>
             <span class="deals-reg">$5.55 (5/$22.20) (+Tax 11%)</span>
         </div>
         <div class="deal-card">
-            <span class="deals-item">$26 Mini-Rockets<br>(3x0.7g Infused)</span>
+            <span class="deals-item"><span class="deal-price-hl">$26</span> Mini-Rockets</span>
+            <span class="deals-sub">(3x0.7g Infused)</span>
             <span class="deals-reg">Multi-Flavour • $28.86 (+Tax 11%)</span>
         </div>
         <div class="deal-card">
-            <span class="deals-item">$25 Moonrocks<br>(1.5g)</span>
+            <span class="deals-item"><span class="deal-price-hl">$25</span> Moonrocks</span>
+            <span class="deals-sub">(1.5g)</span>
             <span class="deals-reg">$27.75 (+Tax 11%)</span>
         </div>
     </div>
@@ -446,7 +488,7 @@
             document.querySelector('.row-red')
         ];
 
-        // Format Superscript Currency, Auto-Tax, and Cache Price Matrix
+        // Format Superscript Currency, Superscript Cents, Auto-Tax, and Cache Price Matrix
         for (var r = 0; r < rowEls.length; r++) {
             var tds = rowEls[r].querySelectorAll('td');
             for (var c = 1; c < tds.length; c++) {
@@ -456,7 +498,12 @@
                     var rawVal = parseFloat(pNode.innerHTML.replace(/[^0-9.]/g, ''));
                     if (!isNaN(rawVal)) {
                         var numStr = pNode.innerHTML.replace(/[^0-9.]/g, '');
-                        pNode.innerHTML = '<span class="curr">$</span>' + numStr;
+                        var parts = numStr.split('.');
+                        if (parts.length > 1) {
+                            pNode.innerHTML = '<span class="curr">$</span>' + parts[0] + '<span class="cents">.' + parts[1] + '</span>';
+                        } else {
+                            pNode.innerHTML = '<span class="curr">$</span>' + parts[0];
+                        }
                         rNode.innerHTML = '$' + (rawVal * 1.11).toFixed(2) + ' (+Tax 11%)';
                         cellMatrix[r][c] = {
                             price: rawVal,
