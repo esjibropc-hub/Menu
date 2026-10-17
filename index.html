@@ -114,23 +114,29 @@
     /* Dual-Tier Column Headers - Locked to 7.2vh */
     thead tr { height: 7.2vh; }
     th { font-size: 4vh; border-bottom: 4px solid #30363d; color: #ffffff; text-transform: uppercase; vertical-align: middle; line-height: 1.05; } 
+    .tier-th { text-align: left; padding-left: 6.6vw; border-right: 2px solid rgba(48, 54, 61, 0.85); }
     .wt-sub { display: block; font-size: 1.65vh; color: #a5b0bc; letter-spacing: 2px; margin-top: 0.25vh; font-weight: 800; }
     
     /* Force 3 exact, unbreakable 19.1vh rows (7.2vh + 3*19.1vh = 64.5vh) */
     tbody tr { height: 19.1vh; }
     td { border-bottom: 2px solid #30363d; vertical-align: middle; position: relative; }
+
+    /* Subtle Precision Hairlines Between Weight Columns */
+    th:nth-child(n+3), td:nth-child(n+3) {
+        border-left: 1px solid rgba(255, 255, 255, 0.05);
+    }
     
     /* Category Differentiation with Optical Row Anchoring */
     .row-white { background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, transparent 65%); }
     .row-blue { background: linear-gradient(90deg, rgba(88,166,255,0.08) 0%, transparent 65%); }
     .row-red { background: linear-gradient(90deg, rgba(248,81,73,0.08) 0%, transparent 65%); }
 
-    .tier-cell { text-align: left; padding: 0 1.8vw 0 2.5vw; border-right: 2px solid rgba(48, 54, 61, 0.7); }
+    .tier-cell { text-align: left; padding: 0 1.8vw 0 2.5vw; border-right: 2px solid rgba(48, 54, 61, 0.85); }
     .row-white .tier-cell { border-left: 1.5vw solid white; }
     .row-blue .tier-cell { border-left: 1.5vw solid #58a6ff; }
     .row-red .tier-cell { border-left: 1.5vw solid #f85149; }
 
-    /* Axis-Locked Left Column Typography */
+    /* Axis-Locked Left Column Typography (1.5vw border + 2.5vw pad + 2.6vw dot = 6.6vw text axis) */
     .tier-name { font-size: 4.8vh; font-weight: 900; display: flex; align-items: center; justify-content: space-between; white-space: nowrap; }
     .tier-left { display: flex; align-items: center; }
     .dot { font-size: 4vh; width: 2.6vw; display: inline-block; flex-shrink: 0; }
@@ -139,12 +145,12 @@
         font-weight: 900; 
         padding: 0.3vh 0.8vw; 
         border-radius: 6px; 
-        background: rgba(0, 0, 0, 0.35); 
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(0, 0, 0, 0.4); 
+        border: 1px solid rgba(255, 255, 255, 0.22);
         letter-spacing: 0.5px;
     }
-    .row-blue .thc-label { border-color: rgba(88, 166, 255, 0.35); }
-    .row-red .thc-label { border-color: rgba(248, 81, 73, 0.35); }
+    .row-blue .thc-label { border-color: rgba(88, 166, 255, 0.38); }
+    .row-red .thc-label { border-color: rgba(248, 81, 73, 0.38); }
     .tier-desc { font-size: 2.5vh; color: #c9d1d9; margin-top: 0.5vh; padding-left: 2.6vw; font-weight: bold; letter-spacing: 0.8px; }
     
     /* Neuromarketing Superscript Currency, Cents & Anti-Glare Shadow */
@@ -246,22 +252,22 @@
     }
     
     .deal-card { 
-        background: rgba(13, 17, 23, 0.58); 
+        background: rgba(13, 17, 23, 0.78); 
         padding: 1.5vh 1vw; 
         border-radius: 12px; 
         width: 23.5%; 
-        height: 84%; 
+        height: 82%; 
         display: flex;
         flex-direction: column;
         justify-content: center;
         border: 1px solid rgba(255,255,255,0.28); 
-        box-shadow: 0 6px 14px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.15); 
+        box-shadow: 0 6px 14px rgba(0,0,0,0.45), inset 0 1px 2px rgba(255,255,255,0.15); 
         text-align: center; 
     } 
     
     .deals-item { font-size: 3.1vh; font-weight: 900; color: white; text-shadow: 0 2px 6px rgba(0,0,0,0.9); display: block; line-height: 1.15; letter-spacing: 0.5px; } 
-    .deal-price-hl { color: #4eff5a; }
-    .deals-sub { font-size: 2.3vh; font-weight: 800; color: #d2f8d8; display: block; margin-top: 0.3vh; text-shadow: 0 2px 4px rgba(0,0,0,0.85); }
+    .deal-price-hl { color: #ffd33d; }
+    .deals-sub { font-size: 2.3vh; font-weight: 800; color: #4eff5a; display: block; margin-top: 0.3vh; text-shadow: 0 2px 4px rgba(0,0,0,0.9); }
     .deals-reg { color: rgba(255,255,255,0.9); font-size: 1.95vh; font-weight: bold; margin-top: 0.6vh; display: block; text-shadow: 0 1px 4px rgba(0,0,0,0.9); }
 
     /* Gapless Live Ticker System - 5.5vh */
@@ -312,10 +318,10 @@
     /* Copyright Stamp - Tucked cleanly above ticker */
     .copyright-stamp {
         position: absolute;
-        bottom: 5.8vh;
+        bottom: 5.75vh;
         right: 1.4vw;
-        font-size: 1.2vh;
-        color: rgba(255, 255, 255, 0.35);
+        font-size: 1.15vh;
+        color: rgba(255, 255, 255, 0.4);
         z-index: 100;
         font-weight: 800;
         letter-spacing: 0.08vw;
@@ -371,7 +377,7 @@
     <table>
         <thead>
             <tr>
-                <th style="text-align: left; padding-left: 2.5vw;">TIER<span class="wt-sub" style="padding-left: 2.6vw;">GRADE &amp; POTENCY</span></th>
+                <th class="tier-th">TIER<span class="wt-sub">GRADE &amp; POTENCY</span></th>
                 <th>1 G<span class="wt-sub">SINGLE</span></th>
                 <th>3.5 G<span class="wt-sub">EIGHTH</span></th>
                 <th>7 G<span class="wt-sub">QUARTER</span></th>
